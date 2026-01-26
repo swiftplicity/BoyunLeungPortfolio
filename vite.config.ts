@@ -31,6 +31,7 @@ function figmaAssetsPlugin() {
     '047e3c4aca9f6b48ceafdb26c7096a714b726e39.png': '/assets/projects/support-system/old-ticket-issues-page.jpg',
     'fd69de1621565fb3566f4621de245a8e85c7860d.png': '/assets/projects/support-system/defining-new-support-agent-flow.jpg',
     '74ed1ab8e6283b2bda1b7eeab3e652ece1dce512.png': '/assets/projects/support-system/new-ticket-issues-page.jpg',
+    '96b8a19f33ef19266a51fc87826824e50ddcaca6.png': '/assets/support demo.gif',
   }
 
   return {
