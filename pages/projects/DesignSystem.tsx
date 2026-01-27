@@ -1,17 +1,17 @@
-import { ImageWithFallback } from "../../components/figma/ImageWithFallback";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Linkedin, Instagram, Github, Mail } from "lucide-react";
-import designSystemImage from 'figma:asset/850075cb0dd0132df73f2746e4178c604c022ce6.png';
-import colorPaletteImage from 'figma:asset/252f257c1492afb17b2ebeef97cf7bb1d4151b17.png';
-import colorGroupingsImage from 'figma:asset/33f615b056ca7d0a801fbdf523ef4b3c29f69070.png';
-import gridsViewpointsImage from 'figma:asset/ce5d5cad0f1289e00edbd7a6eb59b0dc402bec5d.png';
-import badgesImage from 'figma:asset/a79a2d9d60fc66a09c6ef3414e900c51cd15c806.png';
-import buttonsImage from 'figma:asset/66b661ec7ac2509e9a4448f37db697afb64d6952.png';
-import calendarImage from 'figma:asset/eb22525e1b1ce87c9818df461e7e25ba08395609.png';
-import inputFieldImage from 'figma:asset/98bb393cf9b7ab1f94ba7b2c9d3f059560c97f0f.png';
-import toastNotificationImage from 'figma:asset/f2c2347666cf71695ed378439d07c5c6a95a45c8.png';
-import tablePatternImage from 'figma:asset/fef403ef505d9c25646be02895ffa5d0240d6bbd.png';
-import setRemindersPatternImage from 'figma:asset/ac0b5ec2801d873b4a4ee59dc05b41ebd0e34101.png';
+
+const designSystemImage = '/assets/projects/design-system/harmony-design-system.png';
+const colorPaletteImage = '/assets/projects/design-system/color-palette-guidelines.png';
+const colorGroupingsImage = '/assets/projects/design-system/recommended-colour-groupings.png';
+const gridsViewpointsImage = '/assets/projects/design-system/grids-and-viewpoints.png';
+const badgesImage = '/assets/projects/design-system/badges-component.png';
+const buttonsImage = '/assets/projects/design-system/buttons-component.png';
+const calendarImage = '/assets/projects/design-system/calendar-component.png';
+const inputFieldImage = '/assets/projects/design-system/input-field-component.png';
+const toastNotificationImage = '/assets/projects/design-system/toast-notification-component.png';
+const tablePatternImage = '/assets/projects/design-system/table-pattern.png';
+const setRemindersPatternImage = '/assets/projects/design-system/set-reminders-pattern.png';
 
 export function DesignSystem() {
   return (
@@ -49,7 +49,7 @@ export function DesignSystem() {
 
       {/* Hero Image */}
       <div className="mb-8 aspect-[16/10] w-full overflow-hidden rounded-lg bg-gray-100">
-        <ImageWithFallback
+        <img
           src={designSystemImage}
           alt="Harmony Design System"
           className="h-full w-full object-cover"
@@ -153,7 +153,7 @@ export function DesignSystem() {
         </h2>
         
         <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <ImageWithFallback
+          <img
             src={colorPaletteImage}
             alt="Color palette guidelines"
             className="w-full object-contain"
@@ -161,7 +161,7 @@ export function DesignSystem() {
         </div>
 
         <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <ImageWithFallback
+          <img
             src={colorGroupingsImage}
             alt="Recommended colour groupings"
             className="w-full object-contain"
@@ -169,7 +169,7 @@ export function DesignSystem() {
         </div>
 
         <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <ImageWithFallback
+          <img
             src={gridsViewpointsImage}
             alt="Grids and viewpoints"
             className="w-full object-contain"
@@ -182,7 +182,7 @@ export function DesignSystem() {
         </h2>
 
         <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <ImageWithFallback
+          <img
             src={badgesImage}
             alt="Badges component"
             className="w-full object-contain"
@@ -190,7 +190,7 @@ export function DesignSystem() {
         </div>
 
         <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <ImageWithFallback
+          <img
             src={buttonsImage}
             alt="Buttons component"
             className="w-full object-contain"
@@ -198,7 +198,7 @@ export function DesignSystem() {
         </div>
 
         <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <ImageWithFallback
+          <img
             src={calendarImage}
             alt="Calendar component"
             className="w-full object-contain"
@@ -206,7 +206,7 @@ export function DesignSystem() {
         </div>
 
         <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <ImageWithFallback
+          <img
             src={inputFieldImage}
             alt="Input field component"
             className="w-full object-contain"
@@ -214,7 +214,7 @@ export function DesignSystem() {
         </div>
 
         <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <ImageWithFallback
+          <img
             src={toastNotificationImage}
             alt="Toast notification component"
             className="w-full object-contain"
@@ -227,7 +227,7 @@ export function DesignSystem() {
         </h2>
 
         <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <ImageWithFallback
+          <img
             src={tablePatternImage}
             alt="Table pattern"
             className="w-full object-contain"
@@ -235,7 +235,7 @@ export function DesignSystem() {
         </div>
 
         <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <ImageWithFallback
+          <img
             src={setRemindersPatternImage}
             alt="Set reminders pattern"
             className="w-full object-contain"
@@ -259,16 +259,18 @@ export function DesignSystem() {
 
         {/* Navigation Buttons */}
         <div className="mt-12 flex justify-between items-center gap-4">
-          <Link 
+          <Link
             to="/projects/support-system"
+            onClick={() => window.scrollTo(0, 0)}
             className="inline-flex items-center justify-center gap-2 rounded-md border border-[#1938D1] bg-transparent px-6 py-3 text-[#1938D1] hover:bg-[#1938D1]/5 transition-colors text-[14px] w-[140px]"
             style={{ fontFamily: "'Open Sans', sans-serif" }}
           >
             <ArrowLeft size={16} />
             Previous
           </Link>
-          <Link 
+          <Link
             to="/projects/support-system"
+            onClick={() => window.scrollTo(0, 0)}
             className="inline-flex items-center justify-center gap-2 rounded-md border border-[#1938D1] bg-transparent px-6 py-3 text-[#1938D1] hover:bg-[#1938D1]/5 transition-colors text-[14px] w-[140px]"
             style={{ fontFamily: "'Open Sans', sans-serif" }}
           >

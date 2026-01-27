@@ -1,7 +1,7 @@
-import { ImageWithFallback } from "../../components/figma/ImageWithFallback";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Linkedin, Instagram, Github, Mail } from "lucide-react";
-import learningSessionsImage from 'figma:asset/3eaae516837c9ce9349d6846497c7d0e7fa46e3a.png';
+
+const learningSessionsImage = 'https://placehold.co/800x600/e5e7eb/6b7280?text=Learning+Sessions';
 
 export function LearningSessions() {
   return (
@@ -78,16 +78,18 @@ export function LearningSessions() {
 
         {/* Navigation Buttons */}
         <div className="mt-12 flex justify-between items-center gap-4">
-          <Link 
+          <Link
             to="/projects/design-system"
+            onClick={() => window.scrollTo(0, 0)}
             className="inline-flex items-center justify-center gap-2 rounded-md border border-[#1938D1] bg-transparent px-6 py-3 text-[#1938D1] hover:bg-[#1938D1]/5 transition-colors text-[14px] w-[140px]"
             style={{ fontFamily: "'Open Sans', sans-serif" }}
           >
             <ArrowLeft size={16} />
             Previous
           </Link>
-          <Link 
+          <Link
             to="/projects/support-system"
+            onClick={() => window.scrollTo(0, 0)}
             className="inline-flex items-center justify-center gap-2 rounded-md border border-[#1938D1] bg-transparent px-6 py-3 text-[#1938D1] hover:bg-[#1938D1]/5 transition-colors text-[14px] w-[140px]"
             style={{ fontFamily: "'Open Sans', sans-serif" }}
           >

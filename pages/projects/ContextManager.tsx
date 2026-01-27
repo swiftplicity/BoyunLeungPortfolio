@@ -1,7 +1,7 @@
-import { ImageWithFallback } from "../../components/figma/ImageWithFallback";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Linkedin, Instagram, Github, Mail } from "lucide-react";
-import contextManagerImage from 'figma:asset/d38aea7ce30b73bef56c57aad420032e2d661a54.png';
+
+const contextManagerImage = '/assets/projects/ibm-watsonx-workshop-context-manager.png';
 
 export function ContextManager() {
   return (
@@ -78,16 +78,18 @@ export function ContextManager() {
 
         {/* Navigation Buttons */}
         <div className="mt-12 flex justify-between items-center gap-4">
-          <Link 
+          <Link
             to="/projects/support-system"
+            onClick={() => window.scrollTo(0, 0)}
             className="inline-flex items-center justify-center gap-2 rounded-md border border-[#1938D1] bg-transparent px-6 py-3 text-[#1938D1] hover:bg-[#1938D1]/5 transition-colors text-[14px] w-[140px]"
             style={{ fontFamily: "'Open Sans', sans-serif" }}
           >
             <ArrowLeft size={16} />
             Previous
           </Link>
-          <Link 
+          <Link
             to="/projects/design-system"
+            onClick={() => window.scrollTo(0, 0)}
             className="inline-flex items-center justify-center gap-2 rounded-md border border-[#1938D1] bg-transparent px-6 py-3 text-[#1938D1] hover:bg-[#1938D1]/5 transition-colors text-[14px] w-[140px]"
             style={{ fontFamily: "'Open Sans', sans-serif" }}
           >

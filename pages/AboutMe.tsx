@@ -1,6 +1,7 @@
-import profileImage from 'figma:asset/f0912268a01740a0933ffb413e8fd9a020ac29c3.png';
 import { Linkedin, Instagram, Github, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
+
+const profileImage = '/assets/profile/boyun-leung.png';
 
 export function AboutMe() {
   return (

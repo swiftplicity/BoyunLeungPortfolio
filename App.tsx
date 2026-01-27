@@ -181,7 +181,7 @@ function Layout() {
       {/* Content */}
       <div className="relative z-10">
         {/* Navigation */}
-        <nav className="mx-auto max-w-6xl px-8 py-6">
+        <nav className="mx-auto max-w-6xl px-8 py-6 pt-12">
           <div className="flex items-center justify-between">
             <Link to="/" className="transition-opacity hover:opacity-80">
               <Heartlogo1Traced />

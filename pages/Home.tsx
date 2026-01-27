@@ -1,11 +1,12 @@
 import { ProjectCard } from "../components/ProjectCard";
 import { Linkedin, Instagram, Github, Mail } from "lucide-react";
-import designSystemImage from 'figma:asset/850075cb0dd0132df73f2746e4178c604c022ce6.png';
-import cognitiveClassImage from 'figma:asset/57313053cf026aef4fcf861970d5cd48079c721a.png';
-import markAIImage from 'figma:asset/9ffbc07ddc6bf52e35428e8d4772190abf3bfc5e.png';
-import supportSystemImage from 'figma:asset/0118a6518dee130d65796f2ed4ea41f14048ef7b.png';
-import contextManagerImage from 'figma:asset/d38aea7ce30b73bef56c57aad420032e2d661a54.png';
-import learningSessionsImage from 'figma:asset/3eaae516837c9ce9349d6846497c7d0e7fa46e3a.png';
+
+const designSystemImage = '/assets/projects/design-system/harmony-design-system.png';
+const cognitiveClassImage = 'https://placehold.co/800x600/e5e7eb/6b7280?text=Cognitive+Class';
+const markAIImage = '/assets/projects/mark-ai-grader.png';
+const supportSystemImage = '/assets/projects/support-system/ibm-skills-network-support.png';
+const contextManagerImage = '/assets/projects/ibm-watsonx-workshop-context-manager.png';
+const learningSessionsImage = 'https://placehold.co/800x600/e5e7eb/6b7280?text=Learning+Sessions';
 
 export default function Home() {
   const projects = [
@@ -44,7 +45,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <div className="mx-auto max-w-6xl px-8 pt-8 md:pt-24 pb-2 md:pb-6">
+      <div className="mx-auto max-w-6xl px-8 pt-8 md:pt-16 pb-2 md:pb-6">
         <h1 className="mb-6 md:mb-8 font-['Open_Sans',_sans-serif] text-[#1e3a5f] text-[32px] sm:text-[40px] md:text-[48px]" style={{ fontVariationSettings: "'wdth' 100" }}>
           Hey, I'm Boyun!
         </h1>
@@ -53,7 +54,7 @@ export default function Home() {
           <span className="italic text-[rgb(25,56,209)]"> delightful ✨</span>
         </p>
         <h2 className="mb-6 md:mb-8 font-['Open_Sans',_sans-serif] text-[#1e3a5f] text-[16px] sm:text-[20px] md:text-[24px] py-4 font-light">
-          Currently Designer @ IBM and Cofounder of <a href="https://www.foryourdelight.ca/" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#1938D1] transition-colors">foryourdelight</a>
+          Currently Designer @ <a href="https://skills.network/" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#1938D1] transition-colors">IBM Skills Network</a> and Cofounder of <a href="https://www.foryourdelight.ca/" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#1938D1] transition-colors">foryourdelight</a>
         </h2>
       </div>
 

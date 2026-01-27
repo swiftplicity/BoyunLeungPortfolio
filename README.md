@@ -1,6 +1,6 @@
 # Boyun Leung Portfolio
 
-A modern, responsive portfolio website built with React, TypeScript, and Tailwind CSS. Originally created with Figma Make and deployed to GitHub Pages.
+A modern, responsive portfolio website built with React, TypeScript, and Tailwind CSS, deployed to GitHub Pages.
 
 ## Tech Stack
 
@@ -87,7 +87,6 @@ Builds the project and deploys it to GitHub Pages. This command:
 BoyunLeungPortfolio/
 ├── components/          # Reusable UI components
 │   ├── ui/             # shadcn/ui components
-│   ├── figma/          # Figma-specific components
 │   └── ProjectCard.tsx # Custom components
 ├── pages/              # Page components
 │   ├── Home.tsx
@@ -99,7 +98,7 @@ BoyunLeungPortfolio/
 ├── imports/            # SVG and asset imports
 ├── public/             # Static assets
 │   ├── CNAME          # Custom domain configuration
-│   └── ASSETS_README.md
+│   └── assets/        # Images and media files
 ├── App.tsx             # Main app component with routing
 ├── main.tsx            # Application entry point
 ├── index.html          # HTML template
@@ -208,16 +207,6 @@ This project uses Tailwind CSS with custom CSS variables defined in styles/globa
 **Tailwind Classes**: Use for utility-first styling
 **Custom Animations**: Sparkle cursor effect included
 
-### Figma Assets
-
-The project includes special `figma:asset/` imports from Figma Make. If you see broken images:
-
-1. These are placeholders for actual images from Figma
-2. The `ImageWithFallback` component will show a placeholder if assets are missing
-3. Replace with actual images or re-export from Figma Make
-
-See public/ASSETS_README.md for more details.
-
 ## Troubleshooting
 
 ### Development server won't start
@@ -236,7 +225,7 @@ See public/ASSETS_README.md for more details.
 ### Images not loading
 - Check that assets are in the `public/` folder
 - Verify image paths are correct
-- See Figma Assets section above
+- Ensure image files exist in the `public/assets/` directory
 
 ### Custom domain not working
 - Verify CNAME file contains only your domain name
@@ -278,7 +267,6 @@ Images from [Unsplash](https://unsplash.com) are used under the [Unsplash Licens
 
 ## Acknowledgments
 
-- Built with [Figma Make](https://help.figma.com/hc/en-us/articles/35463818346647)
 - UI components from [shadcn/ui](https://ui.shadcn.com/)
 - Icons from [Lucide React](https://lucide.dev/)
 - Deployed on [GitHub Pages](https://pages.github.com/)

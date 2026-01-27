@@ -1,12 +1,12 @@
-import { ImageWithFallback } from "../../components/figma/ImageWithFallback";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Linkedin, Instagram, Github, Mail, X } from "lucide-react";
 import { useState } from "react";
-import supportSystemImage from 'figma:asset/0118a6518dee130d65796f2ed4ea41f14048ef7b.png';
-import dashboardImage from 'figma:asset/96b8a19f33ef19266a51fc87826824e50ddcaca6.png';
-import oldTicketImage from 'figma:asset/047e3c4aca9f6b48ceafdb26c7096a714b726e39.png';
-import agentFlowImage from 'figma:asset/fd69de1621565fb3566f4621de245a8e85c7860d.png';
-import newTicketImage from 'figma:asset/74ed1ab8e6283b2bda1b7eeab3e652ece1dce512.png';
+
+const supportSystemImage = '/assets/projects/support-system/ibm-skills-network-support.png';
+const dashboardImage = '/assets/support demo.gif';
+const oldTicketImage = '/assets/projects/support-system/old-ticket-issues-page.jpg';
+const agentFlowImage = '/assets/projects/support-system/defining-new-support-agent-flow.jpg';
+const newTicketImage = '/assets/projects/support-system/new-ticket-issues-page.jpg';
 
 export function SupportSystem() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,7 +48,7 @@ export function SupportSystem() {
 
       {/* Hero Image */}
       <div className="mb-8 aspect-[16/10] w-full overflow-hidden rounded-lg bg-gray-100">
-        <ImageWithFallback
+        <img
           src={supportSystemImage}
           alt="Skills Network Support"
           className="h-full w-full object-cover"
@@ -184,16 +184,18 @@ export function SupportSystem() {
 
         {/* Navigation Buttons */}
         <div className="mt-12 flex justify-between items-center gap-4">
-          <Link 
+          <Link
             to="/projects/design-system"
+            onClick={() => window.scrollTo(0, 0)}
             className="inline-flex items-center justify-center gap-2 rounded-md border border-[#1938D1] bg-transparent px-6 py-3 text-[#1938D1] hover:bg-[#1938D1]/5 transition-colors text-[14px] w-[140px]"
             style={{ fontFamily: "'Open Sans', sans-serif" }}
           >
             <ArrowLeft size={16} />
             Previous
           </Link>
-          <Link 
+          <Link
             to="/projects/design-system"
+            onClick={() => window.scrollTo(0, 0)}
             className="inline-flex items-center justify-center gap-2 rounded-md border border-[#1938D1] bg-transparent px-6 py-3 text-[#1938D1] hover:bg-[#1938D1]/5 transition-colors text-[14px] w-[140px]"
             style={{ fontFamily: "'Open Sans', sans-serif" }}
           >

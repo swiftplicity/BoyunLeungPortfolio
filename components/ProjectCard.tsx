@@ -1,7 +1,6 @@
-import { ImageWithFallback } from './figma/ImageWithFallback';
 import { Github } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 interface ProjectCardProps {
   title: string;
@@ -18,46 +17,68 @@ export function ProjectCard({ title, description, image, tags, route, github, is
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setCursorPosition({
       x: e.clientX - rect.left,
       y: e.clientY - rect.top,
     });
-  };
+  }, []);
 
-  const commonProps = {
-    className: `group relative flex flex-col overflow-hidden rounded-lg bg-white/80 backdrop-blur-sm shadow-sm transition-all duration-300 border border-gray-100 ${comingSoon ? 'cursor-default opacity-80' : 'cursor-pointer hover:shadow-lg'}`,
+  const handleMouseEnter = useCallback(() => {
+    setIsHovering(true);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHovering(false);
+  }, []);
+
+  // Different props for coming soon vs regular cards
+  const commonProps = comingSoon ? {
+    className: 'group relative flex flex-col overflow-hidden rounded-lg bg-white/80 backdrop-blur-sm shadow-sm transition-all duration-300 border border-gray-100 cursor-default opacity-80',
+  } : {
+    className: 'group relative flex flex-col overflow-hidden rounded-lg bg-white/80 backdrop-blur-sm shadow-sm transition-all duration-300 border border-gray-100 cursor-pointer hover:shadow-lg',
     onMouseMove: handleMouseMove,
-    onMouseEnter: () => setIsHovering(true),
-    onMouseLeave: () => setIsHovering(false),
+    onMouseEnter: handleMouseEnter,
+    onMouseLeave: handleMouseLeave,
   };
 
   const content = (
     <>
-    {/* Custom Cursor */}
-    {isHovering && (
+    {/* Custom Cursor for regular cards */}
+    {isHovering && !comingSoon && (
       <div
         className="absolute pointer-events-none z-50"
         style={{
           left: `${cursorPosition.x}px`,
           top: `${cursorPosition.y}px`,
           transform: 'translate(-50%, -50%)',
+          willChange: 'transform',
         }}
       >
-        {/* Learn More / Coming Soon Button */}
+        {/* Learn More Button */}
         <div className="bg-[#1938d1] rounded-[4px] px-[8px] py-[4px]">
           <p className="font-['Open_Sans:Light',_sans-serif] font-light leading-[16px] text-[10px] text-nowrap text-white whitespace-pre" style={{ fontVariationSettings: "'wdth' 100" }}>
-            {comingSoon ? 'Coming Soon' : 'Learn More'}
+            Learn More
           </p>
         </div>
       </div>
     )}
     <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-100">
-      <ImageWithFallback
+      {/* Coming Soon overlay for coming soon cards */}
+      {comingSoon && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black/30 pointer-events-none z-10">
+          <div className="bg-[#1938d1] rounded-[4px] px-[8px] py-[4px]">
+            <p className="font-['Open_Sans:Light',_sans-serif] font-light leading-[16px] text-[10px] text-nowrap text-white whitespace-pre" style={{ fontVariationSettings: "'wdth' 100" }}>
+              Coming Soon
+            </p>
+          </div>
+        </div>
+      )}
+      <img
         src={image}
         alt={title}
-        className={`h-full w-full object-cover transition-transform duration-300 ${comingSoon ? '' : 'group-hover:scale-105'}`}
+        className={`h-full w-full object-cover ${comingSoon ? '' : 'transition-transform duration-300 group-hover:scale-105'}`}
       />
     </div>
     

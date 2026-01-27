@@ -1,47 +1,47 @@
-import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Linkedin, Instagram, Github, Mail } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
-import yearbookCover from 'figma:asset/027f074caf782e03c58fe114ff82c5360d5987cb.png';
-import colorPalette2016 from 'figma:asset/c981f94a0fdb177ae6d3132fa065f1672c75f84b.png';
-import layout1 from 'figma:asset/53dc547f58d358e0ea1a131985391f69f92eb655.png';
-import layout2 from 'figma:asset/04ecc3746e4d139c215450e01fee475539b7cbb9.png';
-import layout3 from 'figma:asset/efcf6c0f626bd33d6ca4a28e9f0ee3d21147ca08.png';
-import layout4 from 'figma:asset/dded26fa56cdce2e2eba52837df8e6f12d7e463b.png';
-import layout5 from 'figma:asset/bf12aa0632f0af6bea086e0d71e37a6051f1bffd.png';
-import layout6 from 'figma:asset/9afc815d394e887a60dc8d9b34794dae8b50c138.png';
-import layout7 from 'figma:asset/2b17856f363b6233c96f3fa8de573133033daaa5.png';
-import layout8 from 'figma:asset/ea2d765dab7d2cb4743f2aaf1b0d07771b5927e5.png';
-import layout9 from 'figma:asset/3df0593e3933f2702975e239556b679074809410.png';
-import layout10 from 'figma:asset/b64f29d42e4e67fd390aaf8976cf6e82924119be.png';
-import layout11 from 'figma:asset/8cc0243ff994c016d35b9ff6c2f56125d3826189.png';
-import layout12 from 'figma:asset/caae592d473952196710170a7f88ef3b86f92da9.png';
-import layout13 from 'figma:asset/e138bf8c1beee24fba3e3afc4b8648a7fee569fa.png';
-import illustrations2017 from 'figma:asset/0fae35070064461f19c5e92f122bb7e495e5d6d9.png';
-import layout2017_1 from 'figma:asset/ff2a8499adb74674da082d6d8c2017c2b1b863b9.png';
-import layout2017_2 from 'figma:asset/687ddb2476f9a786d4fc1aa82cc449504616da31.png';
-import layout2017_3 from 'figma:asset/ad70f88666593206fece59538d1e8613ff78aa4c.png';
-import layout2017_4 from 'figma:asset/b4aceec7433303a545c50417b01b130fdfc5a05a.png';
-import layout2017_5 from 'figma:asset/3dc8d6daee7981a42c8257120e614903a12ebc3f.png';
-import layout2017_6 from 'figma:asset/f7b4164f206394197388a308d0aafdec2bd48da8.png';
-import layout2017_7 from 'figma:asset/6a5e179122ae6daf1336aaaf4bf3d0a92c8997e0.png';
-import layout2017_8 from 'figma:asset/7c8773003ffa8d37d2c730dad49ea8b791ed80f1.png';
-import layout2017_9 from 'figma:asset/d89823c55265b873c7eba514ba20dc08ecc32c87.png';
-import layout2017_10 from 'figma:asset/d467c724890befad26a39b6ce25ba033f0220e57.png';
-import layout2017_11 from 'figma:asset/785dbb5189d62f4accffd9f511abf87bed4c0728.png';
-import layout2017_12 from 'figma:asset/ed8d4864bcf271e79c3e3e1421e94f3088a8099b.png';
-import layout2017_13 from 'figma:asset/c8aae287f643b69a689789809ebe633ab6afab2a.png';
-import layout2017_14 from 'figma:asset/1d2fe291e05b35e5e9092371d56275fdd3fd8c7f.png';
-import layout2017_15 from 'figma:asset/d7cca628fdd38b99aecde8e7f9937e7d79800429.png';
-import layout2017_16 from 'figma:asset/04a3af782804c4e74a7f1dd869d94e0b998924be.png';
-import layout2017_17 from 'figma:asset/885264540728908ebff0a15f0ef8931f6b95cb47.png';
-import layout2017_18 from 'figma:asset/ed01f0fa364403c2bf57da12f0c747ece774a3d2.png';
-import layout2017_19 from 'figma:asset/f2c0396bb18bf74afbcc2f903ade043854fcb29d.png';
-import layout2017_20 from 'figma:asset/b5790e098416a0a0628764a93638f2454d362ba4.png';
-import layout2017_21 from 'figma:asset/ae7e2cd139eca55a49c04a9b28d4b0e3da222705.png';
-import layout2017_22 from 'figma:asset/fdaefc6c9f6e6d2a76589360febb25a5ce1e3288.png';
-import colorPalette2017 from 'figma:asset/430f1eda13d31b251f79862ff7b5e738ae7b3991.png';
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+const yearbookCover = '/assets/yearbook/spiral-staircase-1718-yearbook-cover.png';
+const colorPalette2016 = '/assets/yearbook/2016-2017-yearbook-colour-palette-and-typography.png';
+const layout1 = '/assets/yearbook/student-survey-1617-layout.png';
+const layout2 = '/assets/yearbook/gr 11/15515770_1190728611012301_978472638_o.jpg';
+const layout3 = '/assets/yearbook/gr 11/baby photo Yearbook.jpg';
+const layout4 = '/assets/yearbook/gr 11/2016 survey layout.jpg';
+const layout5 = '/assets/yearbook/gr 11/letter.jpg';
+const layout6 = '/assets/yearbook/gr 11/committe.jpg';
+const layout7 = '/assets/yearbook/gr 11/contents.jpg';
+const layout8 = '/assets/yearbook/gr 11/COVER PAGE YEARBOOK.jpg';
+const layout9 = '/assets/yearbook/gr 11/Grade 11 cover (1).jpg';
+const layout10 = '/assets/yearbook/gr 11/Endpage.jpg';
+const layout11 = '/assets/yearbook/gr 11/sac vs.jpg';
+const layout12 = '/assets/yearbook/gr 11/humans of ay.jpg';
+const layout13 = '/assets/yearbook/gr 11/yearbook grade 10.jpg';
+const illustrations2017 = '/assets/yearbook/illustrations-from-2017-2018-yearbook.png';
+const layout2017_1 = '/assets/yearbook/spiral-staircase-1718-with-mlk-quote.png';
+const layout2017_2 = '/assets/yearbook/gr 12/execs copy.jpg';
+const layout2017_3 = "/assets/yearbook/gr 12/Editor's letter better.jpg";
+const layout2017_4 = '/assets/yearbook/gr 12/Yearbook Cover Final.jpg';
+const layout2017_5 = '/assets/yearbook/gr 12/table of contents.jpg';
+const layout2017_6 = '/assets/yearbook/gr 12/committee good.jpg';
+const layout2017_7 = '/assets/yearbook/gr 12/Admin.jpg';
+const layout2017_8 = '/assets/yearbook/gr 12/staff survey final.jpg';
+const layout2017_9 = '/assets/yearbook/gr 12/students cover.jpg';
+const layout2017_10 = '/assets/yearbook/gr 12/superlatives right.jpg';
+const layout2017_11 = '/assets/yearbook/gr 12/squad.jpg';
+const layout2017_12 = '/assets/yearbook/gr 12/SAC Design good.jpg';
+const layout2017_13 = '/assets/yearbook/gr 12/Club-Achievements.jpg';
+const layout2017_14 = '/assets/yearbook/gr 12/clubs f5.jpg';
+const layout2017_15 = '/assets/yearbook/gr 12/Sports 4 final.jpg';
+const layout2017_16 = '/assets/yearbook/gr 12/Music pg 1.jpg';
+const layout2017_17 = '/assets/yearbook/gr 12/classof2018.jpg';
+const layout2017_18 = '/assets/yearbook/gr 12/events page 2.jpg';
+const layout2017_19 = '/assets/yearbook/gr 12/scrap 1.jpg';
+const layout2017_20 = '/assets/yearbook/gr 12/Back RBG.jpg';
+const layout2017_21 = '/assets/yearbook/gr 12/art2 (1).jpg';
+const layout2017_22 = '/assets/yearbook/gr 12/Student Survey RBG.jpg';
+const colorPalette2017 = '/assets/yearbook/colour-palette-and-typography-for-2017-2018-yearbo.png';
 
 export function Yearbook() {
   const navigate = useNavigate();
@@ -119,7 +119,7 @@ export function Yearbook() {
 
       {/* Hero Image */}
       <div className="mb-8 aspect-[16/10] w-full overflow-hidden rounded-lg bg-gray-100">
-        <ImageWithFallback
+        <img
           src={yearbookCover}
           alt="Spiral Staircase 17/18 Yearbook Cover"
           className="h-full w-full object-cover"
@@ -162,7 +162,7 @@ export function Yearbook() {
           {/* 2016-2017 Color Palette Image */}
             <div className="my-8">
               <div className="mb-3 rounded-lg overflow-hidden shadow-lg">
-                <ImageWithFallback
+                <img
                   src={colorPalette2016}
                   alt="2016-2017 Yearbook Colour Palette and Typography"
                   className="w-full h-auto object-cover"
@@ -182,7 +182,7 @@ export function Yearbook() {
             <div className="my-8">
               <div className="mb-3 rounded-lg overflow-hidden shadow-lg relative bg-gray-300">
                 <div className="relative h-[500px] sm:h-[600px] flex items-center justify-center">
-                  <ImageWithFallback
+                  <img
                     src={layouts[currentSlide].src}
                     alt={layouts[currentSlide].alt}
                     className="h-full w-auto object-contain"
@@ -247,7 +247,7 @@ export function Yearbook() {
             {/* 2017-2018 Illustrations Image */}
             <div className="my-8">
               <div className="mb-3 rounded-lg overflow-hidden shadow-lg">
-                <ImageWithFallback
+                <img
                   src={illustrations2017}
                   alt="Illustrations from 2017-2018 yearbook"
                   className="w-full h-auto"
@@ -269,7 +269,7 @@ export function Yearbook() {
             {/* 2017-2018 Colour Palette and Fonts */}
             <div className="my-8">
               <div className="mb-3 rounded-lg overflow-hidden shadow-lg">
-                <ImageWithFallback
+                <img
                   src={colorPalette2017}
                   alt="Colour palette and typography for 2017-2018 yearbook"
                   className="w-full h-auto"
@@ -288,7 +288,7 @@ export function Yearbook() {
             <div className="my-8">
               <div className="mb-3 rounded-lg overflow-hidden shadow-lg relative bg-gray-300">
                 <div className="relative h-[500px] sm:h-[600px] flex items-center justify-center">
-                  <ImageWithFallback
+                  <img
                     src={layouts2017[currentSlide2017].src}
                     alt={layouts2017[currentSlide2017].alt}
                     className="h-full w-auto object-contain"

@@ -1,7 +1,7 @@
-import { ImageWithFallback } from "../../components/figma/ImageWithFallback";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Linkedin, Instagram, Github, Mail } from "lucide-react";
-import cognitiveClassImage from 'figma:asset/57313053cf026aef4fcf861970d5cd48079c721a.png';
+
+const cognitiveClassImage = 'https://placehold.co/800x600/e5e7eb/6b7280?text=Cognitive+Class';
 
 export function LearningPlatform() {
   return (
@@ -39,7 +39,7 @@ export function LearningPlatform() {
 
       {/* Hero Image */}
       <div className="mb-8 aspect-[16/10] w-full overflow-hidden rounded-lg bg-gray-100">
-        <ImageWithFallback
+        <img
           src={cognitiveClassImage}
           alt="CognitiveClass.ai"
           className="h-full w-full object-cover"
@@ -78,16 +78,18 @@ export function LearningPlatform() {
 
         {/* Navigation Buttons */}
         <div className="mt-12 flex justify-between items-center gap-4">
-          <Link 
+          <Link
             to="/projects/context-manager"
+            onClick={() => window.scrollTo(0, 0)}
             className="inline-flex items-center justify-center gap-2 rounded-md border border-[#1938D1] bg-transparent px-6 py-3 text-[#1938D1] hover:bg-[#1938D1]/5 transition-colors text-[14px] w-[140px]"
             style={{ fontFamily: "'Open Sans', sans-serif" }}
           >
             <ArrowLeft size={16} />
             Previous
           </Link>
-          <Link 
+          <Link
             to="/projects/design-system"
+            onClick={() => window.scrollTo(0, 0)}
             className="inline-flex items-center justify-center gap-2 rounded-md border border-[#1938D1] bg-transparent px-6 py-3 text-[#1938D1] hover:bg-[#1938D1]/5 transition-colors text-[14px] w-[140px]"
             style={{ fontFamily: "'Open Sans', sans-serif" }}
           >
