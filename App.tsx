@@ -241,7 +241,7 @@ function Layout() {
               <Link to="/about" className="font-['Open_Sans',_sans-serif] font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-[14px]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 About Me
               </Link>
-              <a href="https://drive.google.com/file/d/1BHesReaTG-MGZT3Z2Bw6_bXjYcdi-hpr/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="font-['Open_Sans',_sans-serif] font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-[14px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <a href="https://drive.google.com/file/d/1R-n2lwAQBe7h4YEzRpXrCl4HqPYnYE-4/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="font-['Open_Sans',_sans-serif] font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-[14px]" style={{ fontVariationSettings: "'wdth' 100" }}>
                 Resume
               </a>
             </div>
@@ -287,7 +287,7 @@ function Layout() {
                     About Me
                   </Link>
                   <a 
-                    href="https://drive.google.com/file/d/1BHesReaTG-MGZT3Z2Bw6_bXjYcdi-hpr/view?usp=sharing" 
+                    href="https://drive.google.com/file/d/1R-n2lwAQBe7h4YEzRpXrCl4HqPYnYE-4/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-['Open_Sans',_sans-serif] font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-[18px]" 
