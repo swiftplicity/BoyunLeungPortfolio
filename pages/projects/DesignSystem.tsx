@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Linkedin, Instagram, Github, Mail } from "lucide-react";
+import { ArrowLeftIcon, ArrowRightIcon, LinkedinIcon, InstagramIcon, GithubIcon, MailIcon } from "lucide-react";
 
 const designSystemImage = '/assets/projects/design-system/harmony-design-system.png';
 const colorPaletteImage = '/assets/projects/design-system/color-palette-guidelines.png';
@@ -13,259 +13,217 @@ const toastNotificationImage = '/assets/projects/design-system/toast-notificatio
 const tablePatternImage = '/assets/projects/design-system/table-pattern.png';
 const setRemindersPatternImage = '/assets/projects/design-system/set-reminders-pattern.png';
 
+function SectionRow({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-[260px_1fr] gap-6 md:gap-20 py-12">
+      <div className="pt-1">
+        <span className="text-xl text-[#6B7280] font-light" style={{ fontFamily: "'Open Sans', sans-serif" }}>{label}</span>
+      </div>
+      <div>{children}</div>
+    </div>
+  );
+}
+
 export function DesignSystem() {
   return (
     <>
-    <div className="mx-auto max-w-4xl px-8 py-12">
-      {/* Back Button */}
-      <Link 
-        to="/" 
-        className="inline-flex items-center gap-2 text-[#1938D1] hover:opacity-70 transition-opacity mb-8 text-[14px]"
-        style={{ fontFamily: "'Open Sans', sans-serif" }}
-      >
-        <ArrowLeft size={16} />
-        Back to Projects
-      </Link>
+    <div className="w-full">
 
-      {/* Project Header */}
-      <h1 className="mb-4 text-[#1e3a5f] text-[32px] sm:text-[40px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-        Harmony Design System
-      </h1>
-      
-      <div className="mb-8 flex flex-wrap gap-2">
-        <span className="rounded-full bg-[#1938D1]/10 px-3 py-1 text-[#1938D1] text-[11px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-          Design Systems
-        </span>
-        <span className="rounded-full bg-[#1938D1]/10 px-3 py-1 text-[#1938D1] text-[11px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-          Component Library
-        </span>
-        <span className="rounded-full bg-[#1938D1]/10 px-3 py-1 text-[#1938D1] text-[11px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-          Scalability
-        </span>
-        <span className="rounded-full bg-[#1938D1]/10 px-3 py-1 text-[#1938D1] text-[11px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-          Documentation
-        </span>
-      </div>
-
-      {/* Hero Image */}
-      <div className="mb-8 aspect-[16/10] w-full overflow-hidden rounded-lg bg-gray-100">
+      {/* Hero — full width with overlay */}
+      <div className="relative w-full" style={{ minHeight: '60vh' }}>
         <img
           src={designSystemImage}
           alt="Harmony Design System"
-          className="h-full w-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover"
         />
-      </div>
-
-      {/* Project Content */}
-      <div className="prose max-w-none">
-        <h2 className="mb-4 text-[#1e3a5f] text-[24px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-          Overview
-        </h2>
-        <p className="mb-6 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
-          During my 2021 Triyosoft remote internship, I worked as a member of the product team. In addition to designing web app and Microsoft Office Add-in prototypes, I alongside the other UX Intern, Kim Pita spearheaded the creation of a brand new design system. We spent two months on this project and worked in collaboration to create the first iteration to be handed off to the next set of interns.
-        </p>
-
-        {/* How Might We Statement */}
-        <div className="mb-8 rounded-lg bg-gradient-to-r from-[#1938D1]/10 to-[#FAE258]/20 border-l-4 border-[#1938D1] p-6">
-          <p className="text-[#1938D1] text-[18px] leading-relaxed italic" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-            "How might we create a new design system that can be easily used and integrated into current and future products?"
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="relative px-4 md:px-6 xl:px-20 pb-10 md:pb-16 pt-[30vh]">
+          <h1
+            className="text-white text-[36px] sm:text-[48px] md:text-[60px] leading-tight mb-3"
+            style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}
+          >
+            Harmony Design System
+          </h1>
+          <p
+            className="text-white/75 text-[16px] md:text-[20px]"
+            style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}
+          >
+            Building a scalable, consistent design language from the ground up
           </p>
         </div>
+      </div>
+
+      {/* All content inside padded container */}
+      <div className="w-full max-w-[1728px] mx-auto px-4 md:px-6 xl:px-20">
+
+        {/* Introduction */}
+        <SectionRow label="Introduction">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 mb-8">
+            <div>
+              <p className="text-[12px] text-[#9CA3AF] mb-1" style={{ fontFamily: "'Open Sans', sans-serif" }}>Company</p>
+              <p className="text-[15px] text-[#1e3a5f]" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 500 }}>Triyosoft</p>
+            </div>
+            <div>
+              <p className="text-[12px] text-[#9CA3AF] mb-1" style={{ fontFamily: "'Open Sans', sans-serif" }}>Year</p>
+              <p className="text-[15px] text-[#1e3a5f]" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 500 }}>2021</p>
+            </div>
+            <div>
+              <p className="text-[12px] text-[#9CA3AF] mb-1" style={{ fontFamily: "'Open Sans', sans-serif" }}>Role</p>
+              <p className="text-[15px] text-[#1e3a5f]" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 500 }}>UX Design Intern</p>
+            </div>
+          </div>
+          <p className="text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
+            During my 2021 Triyosoft remote internship, I worked as a member of the product team. In addition to designing web app and Microsoft Office Add-in prototypes, I alongside the other UX Intern, Kim Pita spearheaded the creation of a brand new design system. We spent two months on this project and worked in collaboration to create the first iteration to be handed off to the next set of interns.
+          </p>
+        </SectionRow>
+
+        {/* Challenge */}
+        <SectionRow label="Challenge">
+          <div className="rounded-xl bg-gradient-to-r from-[#1938D1]/10 to-[#FAE258]/20 border-l-4 border-[#1938D1] p-6">
+            <p className="text-[#1938D1] text-[18px] leading-relaxed italic" style={{ fontFamily: "'Open Sans', sans-serif" }}>
+              "How might we create a new design system that can be easily used and integrated into current and future products?"
+            </p>
+          </div>
+        </SectionRow>
 
         {/* The Old System */}
-        <h2 className="mb-4 text-[#1e3a5f] text-[24px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-          The Old System
-        </h2>
-        <p className="mb-6 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
-          When we pushed for a move from Adobe XD to Figma, we also realized this would be the perfect opportunity to overhaul the old design guide and create a brand new comprehensive design system following industry best practices. We researched and referenced many public design systems with our main inspirations drawing from Carbon.         </p>
-        <p className="mb-6 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
-          We began by identifying Pain Points within the current system. With these pain points in mind, we developed solutions that would improve the future use of the design system. Our key discoveries were: 
-        </p>
+        <SectionRow label="The Old System">
+          <p className="mb-4 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
+            When we pushed for a move from Adobe XD to Figma, we also realized this would be the perfect opportunity to overhaul the old design guide and create a brand new comprehensive design system following industry best practices. We researched and referenced many public design systems with our main inspirations drawing from Carbon.
+          </p>
+          <p className="mb-8 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
+            We began by identifying Pain Points within the current system. With these pain points in mind, we developed solutions that would improve the future use of the design system. Our key discoveries were:
+          </p>
 
-        <h4 className="mb-3 text-[#1938D1] text-[18px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-          Colours and Typography
-        </h4>
+          <div className="space-y-8">
+            {[
+              {
+                title: "Colours and Typography",
+                pain: "Designers and Developers would select random colours and font sizes as there was no defined documentation specifying use cases.",
+                solution: "Create colour and type face tokens with detailed documentation that accounted for accessibility.",
+              },
+              {
+                title: "Components",
+                pain: "The old design system was simply a collection of components that lacked any explanation of what they were or how they should be used. After evaluating previous designs, we found elements that should have been components and were not in addition to a large selection of components that seemed unnecessary or redundant.",
+                solution: "Determine recurring components and elements that can be used as building blocks when creating new designs.",
+              },
+              {
+                title: "Layouts",
+                pain: "Since the designs had passed through many hands there was a lot of inconsistent spacing and a mixture of \"new\" and \"old\" design elements without any clear documentation of which ones should be used.",
+                solution: "Determine which elements were in use or being phased out, and create a standard by setting spacing, grids, and viewpoint guidelines.",
+              },
+            ].map(({ title, pain, solution }) => (
+              <div key={title}>
+                <p className="mb-3 text-[#1938D1] text-[18px]" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 500 }}>{title}</p>
+                <p className="mb-2 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
+                  <strong style={{ fontWeight: 500 }}>Pain Point:</strong> {pain}
+                </p>
+                <p className="text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
+                  <strong style={{ fontWeight: 500 }}>Solution:</strong> {solution}
+                </p>
+              </div>
+            ))}
+          </div>
+        </SectionRow>
 
-        <p className="mb-2 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
-          <strong style={{ fontWeight: 500 }}>Pain Point:</strong> Designers and Developers would select random colours and font sizes as there was no defined documentation specifying use cases. 
-        </p>
-
-        <p className="mb-6 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
-          <strong style={{ fontWeight: 500 }}>Solution:</strong> Create colour and type face tokens with detailed documentation that accounted for accessibility.
-        </p>
-
-        <h4 className="mb-3 text-[#1938D1] text-[18px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-          Components
-        </h4>
-
-        <p className="mb-2 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
-          <strong style={{ fontWeight: 500 }}>Pain Point:</strong> The old design system was simply a collection of components that lacked any explanation of what they were or how they should be used. After evaluating previous designs, we found elements that should have been components and were not in addition to a large selection of components that seemed unnecessary or redundant.
-        </p>
-
-        <p className="mb-6 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
-          <strong style={{ fontWeight: 500 }}>Solution:</strong> Determine recurring components and elements that can be used as building blocks when creating new designs. 
-        </p>
-
-        <h4 className="mb-3 text-[#1938D1] text-[18px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-          Layouts
-        </h4>
-
-        <p className="mb-2 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
-          <strong style={{ fontWeight: 500 }}>Pain Point:</strong> Since the designs had passed through many hands there was a lot of inconsistent spacing and a mixture of “new” and “old” design elements without any clear documentation of which ones should be used.
-        </p>
-
-        <p className="mb-6 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
-          <strong style={{ fontWeight: 500 }}>Solution:</strong> Determine which elements were in use or being phased out, and create a standard by setting spacing, grids, and viewpoint guidelines. 
-        </p>
-        
         {/* The New System */}
-        <h2 className="mb-4 text-[#1e3a5f] text-[24px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-          The New System
-        </h2>
-      
-        <h3 className="mb-3 text-[#1938D1] text-[20px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-          Consistent
-        </h3>
-        <p className="mb-6 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
-          A component looks the same, achieves the same function, and behaves the same way across all pages and experiences. Users always know what to expect, making their experience with the platform as smooth as possible.
-        </p>
+        <SectionRow label="The New System">
+          <div className="space-y-6 mb-6">
+            {[
+              {
+                title: "Consistent",
+                body: "A component looks the same, achieves the same function, and behaves the same way across all pages and experiences. Users always know what to expect, making their experience with the platform as smooth as possible.",
+              },
+              {
+                title: "Modular",
+                body: "By defining the basic elements (tokens, components, and patterns) that make up an interface, Harmony helps designers and developers optimize their time by enabling them to reuse as much as possible.",
+              },
+              {
+                title: "Scalable",
+                body: "Components are designed to be usable, accessible, and visually coherent for all potential use cases, with error states and edge cases thoroughly defined.",
+              },
+            ].map(({ title, body }) => (
+              <div key={title}>
+                <p className="mb-2 text-[#1e3a5f] text-[20px]" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 500 }}>{title}</p>
+                <p className="text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>{body}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
+            We organized Harmony into three sections: Guidelines, Components, and Patterns. The following is a selection from the final design system.
+          </p>
+        </SectionRow>
 
-        <h3 className="mb-3 text-[#1938D1] text-[20px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-          Modular
-        </h3>
-        <p className="mb-6 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
-          By defining the basic elements (tokens, components, and patterns) that make up an interface, Harmony helps designers and developers optimize their time by enabling them to reuse as much as possible.
-        </p>
-        
-        <h3 className="mb-3 text-[#1938D1] text-[20px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-          Scalable
-        </h3>
-        <p className="mb-6 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
-          Components are designed to be usable, accessible, and visually coherent for all potential use cases, with error states and edge cases thoroughly defined.
-        </p>
-        <p className="mb-6 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
-          We organized Harmony into three sections: Guidelines, Components, and Patterns. The following is a selection from the final design system. 
-        </p>
+        {/* Guidelines */}
+        <SectionRow label="Guidelines">
+          <div className="space-y-6">
+            <div className="w-full overflow-hidden rounded-md">
+              <img src={colorPaletteImage} alt="Color palette guidelines" className="w-full" />
+            </div>
+            <div className="w-full overflow-hidden rounded-md">
+              <img src={colorGroupingsImage} alt="Recommended colour groupings" className="w-full" />
+            </div>
+            <div className="w-full overflow-hidden rounded-md">
+              <img src={gridsViewpointsImage} alt="Grids and viewpoints" className="w-full" />
+            </div>
+          </div>
+        </SectionRow>
 
-        {/*Guidelines */}
-        <h2 className="mb-4 text-[#1e3a5f] text-[24px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-          Guidelines
-        </h2>
-        
-        <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <img
-            src={colorPaletteImage}
-            alt="Color palette guidelines"
-            className="w-full object-contain"
-          />
-        </div>
+        {/* Components */}
+        <SectionRow label="Components">
+          <div className="space-y-6">
+            <div className="w-full overflow-hidden rounded-md">
+              <img src={badgesImage} alt="Badges component" className="w-full" />
+            </div>
+            <div className="w-full overflow-hidden rounded-md">
+              <img src={buttonsImage} alt="Buttons component" className="w-full" />
+            </div>
+            <div className="w-full overflow-hidden rounded-md">
+              <img src={calendarImage} alt="Calendar component" className="w-full" />
+            </div>
+            <div className="w-full overflow-hidden rounded-md">
+              <img src={inputFieldImage} alt="Input field component" className="w-full" />
+            </div>
+            <div className="w-full overflow-hidden rounded-md">
+              <img src={toastNotificationImage} alt="Toast notification component" className="w-full" />
+            </div>
+          </div>
+        </SectionRow>
 
-        <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <img
-            src={colorGroupingsImage}
-            alt="Recommended colour groupings"
-            className="w-full object-contain"
-          />
-        </div>
+        {/* Patterns */}
+        <SectionRow label="Patterns">
+          <div className="space-y-6">
+            <div className="w-full overflow-hidden rounded-md">
+              <img src={tablePatternImage} alt="Table pattern" className="w-full" />
+            </div>
+            <div className="w-full overflow-hidden rounded-md">
+              <img src={setRemindersPatternImage} alt="Set reminders pattern" className="w-full" />
+            </div>
+          </div>
+        </SectionRow>
 
-        <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <img
-            src={gridsViewpointsImage}
-            alt="Grids and viewpoints"
-            className="w-full object-contain"
-          />
-        </div>
+        {/* Takeaways */}
+        <SectionRow label="Takeaways">
+          <ol className="space-y-4 list-decimal pl-5">
+            {[
+              "How to create a design system that caters to both future designers and developers",
+              "How to properly build components in Figma and set the proper restraints so that they are useful building blocks when creating designs",
+              "How to thoroughly consider the functionality and use cases of each UI pattern and element in order to build a well-thought-out system",
+            ].map((item) => (
+              <li key={item} className="text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>{item}</li>
+            ))}
+          </ol>
+        </SectionRow>
 
-        {/*Components */}
-        <h2 className="mb-4 text-[#1e3a5f] text-[24px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-          Components
-        </h2>
-
-        <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <img
-            src={badgesImage}
-            alt="Badges component"
-            className="w-full object-contain"
-          />
-        </div>
-
-        <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <img
-            src={buttonsImage}
-            alt="Buttons component"
-            className="w-full object-contain"
-          />
-        </div>
-
-        <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <img
-            src={calendarImage}
-            alt="Calendar component"
-            className="w-full object-contain"
-          />
-        </div>
-
-        <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <img
-            src={inputFieldImage}
-            alt="Input field component"
-            className="w-full object-contain"
-          />
-        </div>
-
-        <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <img
-            src={toastNotificationImage}
-            alt="Toast notification component"
-            className="w-full object-contain"
-          />
-        </div>
-
-        {/*Patterns */}
-        <h2 className="mb-4 text-[#1e3a5f] text-[24px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-          Patterns
-        </h2>
-
-        <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <img
-            src={tablePatternImage}
-            alt="Table pattern"
-            className="w-full object-contain"
-          />
-        </div>
-
-        <div className="mb-8 w-full overflow-hidden rounded-lg bg-gray-100">
-          <img
-            src={setRemindersPatternImage}
-            alt="Set reminders pattern"
-            className="w-full object-contain"
-          />
-        </div>
-
-        {/*Takeaways */}
-        <h2 className="mb-4 text-[#1e3a5f] text-[24px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
-          Takeaways
-        </h2>
-        
-        <p className="mb-6 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
-          1. How to create a design system that caters to both future designers and developers
-        </p>
-        <p className="mb-6 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
-          2. How to properly build components in Figma and set the proper restraints so that they are useful building blocks when creating designs 
-        </p>
-        <p className="mb-6 text-[#585858] text-[16px] leading-relaxed" style={{ fontFamily: "'Open Sans', sans-serif", fontWeight: 300 }}>
-          3. How to thoroughly consider the functionality and use cases of each UI pattern and element in order to build a well-thought-out system
-        </p>
-
-        {/* Navigation Buttons */}
-        <div className="mt-12 flex justify-between items-center gap-4">
+        {/* Navigation */}
+        <div className="pb-12 flex justify-between items-center border-t border-gray-200 pt-8">
           <Link
             to="/projects/support-system"
             onClick={() => window.scrollTo(0, 0)}
             className="inline-flex items-center justify-center gap-2 rounded-md border border-[#1938D1] bg-transparent px-6 py-3 text-[#1938D1] hover:bg-[#1938D1]/5 transition-colors text-[14px] w-[140px]"
             style={{ fontFamily: "'Open Sans', sans-serif" }}
           >
-            <ArrowLeft size={16} />
+            <ArrowLeftIcon size={16} />
             Previous
           </Link>
           <Link
@@ -275,53 +233,21 @@ export function DesignSystem() {
             style={{ fontFamily: "'Open Sans', sans-serif" }}
           >
             Next
-            <ArrowRight size={16} />
+            <ArrowRightIcon size={16} />
           </Link>
         </div>
+
       </div>
     </div>
 
     {/* Footer */}
-    <div className="mx-auto max-w-6xl px-8 pb-16">
+    <div className="w-full max-w-[1728px] mx-auto px-4 md:px-6 xl:px-20 pb-16">
       <div className="border-t border-gray-200 pt-12">
-        <h2 className="mb-6 font-['Open_Sans',_sans-serif] text-[#1938D1] text-[18px] sm:text-[20px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          Let's Connect
-        </h2>
         <div className="flex items-center gap-6">
-          <a 
-            href="https://www.linkedin.com/in/boyun-leung/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-[#1938D1] hover:opacity-70 transition-opacity"
-            aria-label="LinkedIn"
-          >
-            <Linkedin size={28} />
-          </a>
-          <a 
-            href="https://www.instagram.com/boyunleung/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-[#1938D1] hover:opacity-70 transition-opacity"
-            aria-label="Instagram"
-          >
-            <Instagram size={28} />
-          </a>
-          <a 
-            href="https://github.com/swiftplicity" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-[#1938D1] hover:opacity-70 transition-opacity"
-            aria-label="GitHub"
-          >
-            <Github size={28} />
-          </a>
-          <a 
-            href="mailto:boyun.leung@gmail.com" 
-            className="text-[#1938D1] hover:opacity-70 transition-opacity"
-            aria-label="Email"
-          >
-            <Mail size={28} />
-          </a>
+          <a href="https://www.linkedin.com/in/boyun-leung/" target="_blank" rel="noopener noreferrer" className="text-[#1938D1] hover:opacity-70 transition-opacity" aria-label="LinkedIn"><LinkedinIcon size={28} /></a>
+          <a href="https://www.instagram.com/boyunleung/" target="_blank" rel="noopener noreferrer" className="text-[#1938D1] hover:opacity-70 transition-opacity" aria-label="Instagram"><InstagramIcon size={28} /></a>
+          <a href="https://github.com/swiftplicity" target="_blank" rel="noopener noreferrer" className="text-[#1938D1] hover:opacity-70 transition-opacity" aria-label="GitHub"><GithubIcon size={28} /></a>
+          <a href="mailto:boyun.leung@gmail.com" className="text-[#1938D1] hover:opacity-70 transition-opacity" aria-label="Email"><MailIcon size={28} /></a>
         </div>
       </div>
     </div>

@@ -35,9 +35,9 @@ export function ProjectCard({ title, description, image, tags, route, github, is
 
   // Different props for coming soon vs regular cards
   const commonProps = comingSoon ? {
-    className: 'group relative flex flex-col overflow-hidden rounded-lg bg-white/80 backdrop-blur-sm shadow-sm transition-all duration-300 border border-gray-100 cursor-default opacity-80',
+    className: 'group relative flex flex-col overflow-hidden rounded-md bg-white/80 backdrop-blur-sm shadow-sm transition-all duration-300 border border-gray-100 cursor-default opacity-80',
   } : {
-    className: 'group relative flex flex-col overflow-hidden rounded-lg bg-white/80 backdrop-blur-sm shadow-sm transition-all duration-300 border border-gray-100 cursor-pointer hover:shadow-lg',
+    className: 'group relative flex flex-col overflow-hidden rounded-md bg-white/80 backdrop-blur-sm shadow-sm transition-all duration-300 border border-gray-100 cursor-pointer hover:shadow-lg',
     onMouseMove: handleMouseMove,
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave,

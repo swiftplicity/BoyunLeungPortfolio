@@ -1,7 +1,7 @@
 import { HashRouter, Routes, Route, Link, useLocation, Navigate } from "react-router-dom";
 import Heartlogo1Traced from "./imports/Heartlogo1Traced1";
-import { Menu } from "lucide-react";
 import { useState, useEffect } from "react";
+import { Mail } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "./components/ui/sheet";
 import Home from "./pages/Home";
 import { AboutMe } from "./pages/AboutMe";
@@ -36,6 +36,42 @@ function Layout() {
     }
   }, [location]);
   
+
+  useEffect(() => {
+    if (location.pathname !== '/') return;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let scene: any = null;
+
+    const initScene = async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const US = (window as any).UnicornStudio;
+      if (!US?.addScene) return;
+      scene = await US.addScene({
+        elementId: 'unicorn-bg',
+        projectId: '94dMBvGEIl2kfoUsVxfC',
+        fps: 60,
+        scale: 1,
+        dpi: 1.5,
+        lazyLoad: false,
+      });
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if ((window as any).UnicornStudio?.addScene) {
+      initScene();
+    } else {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.1.9/dist/unicornStudio.umd.js';
+      script.onload = initScene;
+      document.head.appendChild(script);
+    }
+
+    return () => {
+      scene?.destroy();
+    };
+  }, [location.pathname]);
+
   useEffect(() => {
     let sparkleId = 0;
     
@@ -109,200 +145,200 @@ function Layout() {
         </div>
       ))}
       
-      {/* Background Gradients - Same as resume */}
-      <div className="absolute flex h-[872px] items-center justify-center left-[-277px] top-[426px] w-[937px]">
-        <div className="flex-none rotate-[180deg] scale-y-[-100%]">
-          <div className="h-[872px] relative w-[937px]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 937 872">
-              <ellipse cx="468.5" cy="436" fill="url(#paint0_radial_1_78)" id="Ellipse 3" rx="468.5" ry="436" />
-              <defs>
-                <radialGradient cx="0" cy="0" gradientTransform="translate(468.5 436) rotate(90) scale(436 468.5)" gradientUnits="userSpaceOnUse" id="paint0_radial_1_78" r="1">
-                  <stop stopColor="#B5EBE8" stopOpacity="0.3" />
-                  <stop offset="1" stopColor="white" stopOpacity="0" />
-                </radialGradient>
-              </defs>
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div className="absolute flex h-[875px] items-center justify-center left-[-675px] top-[-340px] w-[1083px]">
-        <div className="flex-none rotate-[180deg] scale-y-[-100%]">
-          <div className="h-[875px] relative w-[1083px]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 1083 875">
-              <ellipse cx="541.5" cy="437.5" fill="url(#paint0_radial_1_74)" id="Ellipse 5" rx="541.5" ry="437.5" />
-              <defs>
-                <radialGradient cx="0" cy="0" gradientTransform="translate(541.5 437.5) rotate(90) scale(437.5 541.5)" gradientUnits="userSpaceOnUse" id="paint0_radial_1_74" r="1">
-                  <stop stopColor="#EBB5DF" stopOpacity="0.4" />
-                  <stop offset="1" stopColor="white" stopOpacity="0" />
-                </radialGradient>
-              </defs>
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div className="absolute h-[766px] left-[-539px] top-[186px] w-[861px]">
-        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 861 766">
-          <ellipse cx="430.5" cy="383" fill="url(#paint0_radial_1_72)" fillOpacity="0.8" id="Ellipse 2" rx="430.5" ry="383" />
+      {/* Background Gradients */}
+      {/* Teal — very large, left-center, fades into yellow and blue-purple */}
+      <div className="absolute h-[2000px] left-[-400px] top-[-100px] w-[2000px]">
+        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 2000 2000">
+          <ellipse cx="1000" cy="1000" fill="url(#paint0_radial_1_78)" rx="1000" ry="1000" />
           <defs>
-            <radialGradient cx="0" cy="0" gradientTransform="translate(430.5 383) rotate(90) scale(383 430.5)" gradientUnits="userSpaceOnUse" id="paint0_radial_1_72" r="1">
+            <radialGradient cx="0" cy="0" gradientTransform="translate(1000 1000) rotate(90) scale(1000 1000)" gradientUnits="userSpaceOnUse" id="paint0_radial_1_78" r="1">
+              <stop stopColor="#B5EBE8" stopOpacity="0.4" />
+              <stop offset="0.6" stopColor="#B5EBE8" stopOpacity="0.1" />
+              <stop offset="1" stopColor="white" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+      {/* Pink — top right, very large so it bleeds across the top */}
+      <div className="absolute h-[1800px] left-[400px] top-[-600px] w-[2000px]">
+        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 2000 1800">
+          <ellipse cx="1000" cy="900" fill="url(#paint0_radial_1_74)" rx="1000" ry="900" />
+          <defs>
+            <radialGradient cx="0" cy="0" gradientTransform="translate(1000 900) rotate(90) scale(900 1000)" gradientUnits="userSpaceOnUse" id="paint0_radial_1_74" r="1">
+              <stop stopColor="#EBB5DF" stopOpacity="0.45" />
+              <stop offset="0.6" stopColor="#EBB5DF" stopOpacity="0.1" />
+              <stop offset="1" stopColor="white" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+      {/* Blue-purple — left side anchor */}
+      <div className="absolute h-[1600px] left-[-600px] top-[0px] w-[1600px]">
+        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 1600 1600">
+          <ellipse cx="800" cy="800" fill="url(#paint0_radial_1_72)" fillOpacity="1" rx="800" ry="800" />
+          <defs>
+            <radialGradient cx="0" cy="0" gradientTransform="translate(800 800) rotate(90) scale(800 800)" gradientUnits="userSpaceOnUse" id="paint0_radial_1_72" r="1">
               <stop stopColor="#B5BEEB" stopOpacity="0.6" />
+              <stop offset="0.6" stopColor="#B5BEEB" stopOpacity="0.15" />
               <stop offset="1" stopColor="white" stopOpacity="0" />
             </radialGradient>
           </defs>
         </svg>
       </div>
-      <div className="absolute flex h-[1176px] items-center justify-center left-[-60px] top-[-553px] w-[1319px]">
-        <div className="flex-none rotate-[180deg] scale-y-[-100%]">
-          <div className="h-[1176px] relative w-[1319px]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 1319 1176">
-              <ellipse cx="659.5" cy="588" fill="url(#paint0_radial_1_76)" id="Ellipse 6" rx="659.5" ry="588" />
-              <defs>
-                <radialGradient cx="0" cy="0" gradientTransform="translate(659.5 588) rotate(90) scale(588 659.5)" gradientUnits="userSpaceOnUse" id="paint0_radial_1_76" r="1">
-                  <stop stopColor="#B6B5EB" stopOpacity="0.3" />
-                  <stop offset="1" stopColor="white" stopOpacity="0" />
-                </radialGradient>
-              </defs>
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div className="absolute h-[1226px] left-[-44px] top-[137px] w-[1648px]">
-        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 1648 1226">
-          <ellipse cx="824" cy="613" fill="url(#paint0_radial_1_70)" id="Ellipse 5" rx="824" ry="613" />
+      {/* Purple — top center */}
+      <div className="absolute h-[1600px] left-[-200px] top-[-700px] w-[1800px]">
+        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 1800 1600">
+          <ellipse cx="900" cy="800" fill="url(#paint0_radial_1_76)" rx="900" ry="800" />
           <defs>
-            <radialGradient cx="0" cy="0" gradientTransform="translate(824 613) rotate(90) scale(613 824)" gradientUnits="userSpaceOnUse" id="paint0_radial_1_70" r="1">
-              <stop stopColor="#FAE258" stopOpacity="0.2" />
+            <radialGradient cx="0" cy="0" gradientTransform="translate(900 800) rotate(90) scale(800 900)" gradientUnits="userSpaceOnUse" id="paint0_radial_1_76" r="1">
+              <stop stopColor="#B6B5EB" stopOpacity="0.5" />
+              <stop offset="0.6" stopColor="#B6B5EB" stopOpacity="0.1" />
               <stop offset="1" stopColor="white" stopOpacity="0" />
             </radialGradient>
           </defs>
         </svg>
       </div>
+      {/* Yellow — very large, right side, overlaps teal and pink */}
+      <div className="absolute h-[2000px] left-[500px] top-[-200px] w-[2200px]">
+        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 2200 2000">
+          <ellipse cx="1100" cy="1000" fill="url(#paint0_radial_1_70)" rx="1100" ry="1000" />
+          <defs>
+            <radialGradient cx="0" cy="0" gradientTransform="translate(1100 1000) rotate(90) scale(1000 1100)" gradientUnits="userSpaceOnUse" id="paint0_radial_1_70" r="1">
+              <stop stopColor="#FAE258" stopOpacity="0.28" />
+              <stop offset="0.6" stopColor="#FAE258" stopOpacity="0.07" />
+              <stop offset="1" stopColor="white" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+
+      {/* Unicorn Scene Background - Home only */}
+      {location.pathname === '/' && (
+        <div id="unicorn-bg" className="absolute inset-0 pointer-events-none" style={{ height: '100vh', zIndex: 5 }} />
+      )}
+
+      {/* Grain overlay - all pages except home */}
+      {location.pathname !== '/' && (
+        <div className="grain-overlay" />
+      )}
 
       {/* Content */}
-      <div className="relative z-10">
+      <div className="relative z-10 flex flex-col h-screen overflow-hidden">
         {/* Navigation */}
-        <nav className="mx-auto max-w-6xl px-8 py-6 pt-12">
+        <nav className="py-6 pt-12">
+          <div className="px-4 md:px-6 xl:px-20 w-full max-w-[1728px] mx-auto">
           <div className="flex items-center justify-between">
-            <Link to="/" className="transition-opacity hover:opacity-80">
-              <Heartlogo1Traced />
-            </Link>
-            
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex gap-12">
-              {/* Projects Dropdown */}
-              <div className="relative group">
-                <Link 
-                  to="/#projects" 
-                  className="font-['Open_Sans',_sans-serif] font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-[14px]" 
-                  style={{ fontVariationSettings: "'wdth' 100" }}
-                  onClick={(e) => {
-                    if (location.pathname === '/') {
-                      e.preventDefault();
-                      const element = document.querySelector('#projects');
-                      if (element) {
-                        element.scrollIntoView({ behavior: 'smooth' });
-                      }
-                    }
-                  }}
-                >
-                  Projects
-                </Link>
-                
-                {/* Dropdown Menu */}
-                <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                  <div className="bg-white rounded-lg shadow-lg border border-gray-100 py-2 min-w-[280px]">
-                    <Link 
-                      to="/projects/support-system"
-                      className="block px-4 py-2 font-['Open_Sans',_sans-serif] font-light text-[#585858] hover:text-[#1938d1] hover:bg-gray-50 transition-colors text-[14px]"
-                      style={{ fontVariationSettings: "'wdth' 100" }}
-                    >
-                      Skills Network Support
-                    </Link>
-                    <a 
-                      href="https://mark-ai-grader.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block px-4 py-2 font-['Open_Sans',_sans-serif] font-light text-[#585858] hover:text-[#1938d1] hover:bg-gray-50 transition-colors text-[14px]"
-                      style={{ fontVariationSettings: "'wdth' 100" }}
-                    >
-                      Mark AI Grader
-                    </a>
-                    <Link 
-                      to="/projects/design-system"
-                      className="block px-4 py-2 font-['Open_Sans',_sans-serif] font-light text-[#585858] hover:text-[#1938d1] hover:bg-gray-50 transition-colors text-[14px]"
-                      style={{ fontVariationSettings: "'wdth' 100" }}
-                    >
-                      Harmony Design System
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              
-              <Link to="/about" className="font-['Open_Sans',_sans-serif] font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-[14px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                About Me
-              </Link>
-              <a href="https://drive.google.com/file/d/1R-n2lwAQBe7h4YEzRpXrCl4HqPYnYE-4/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="font-['Open_Sans',_sans-serif] font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-[14px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-                Resume
-              </a>
-            </div>
-
-            {/* Mobile Hamburger Menu */}
+            {/* Left: Menu drawer */}
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-              <SheetTrigger asChild className="md:hidden">
-                <button className="text-[#9CA3AF] hover:text-[#1938d1] transition-colors">
-                  <Menu size={24} />
+              <SheetTrigger asChild>
+                <button className={`font-regular transition-colors text-sm ${location.pathname === '/' ? 'text-white/70 hover:text-white' : 'text-[#1938D1]/70 hover:text-[#1938D1]'}`}>
+                  Menu
                 </button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] bg-white/95 backdrop-blur-sm">
+              <SheetContent side="left" className="w-72 bg-white/95 backdrop-blur-sm">
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <SheetDescription className="sr-only">
                   Navigate to different sections of the portfolio
                 </SheetDescription>
-                <div className="flex flex-col gap-8 mt-12 pl-[40px]">
-                  <Link 
-                    to="/#projects" 
-                    className="font-['Open_Sans',_sans-serif] font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-[18px]" 
-                    style={{ fontVariationSettings: "'wdth' 100" }}
-                    onClick={(e) => {
-                      setMobileMenuOpen(false);
-                      if (location.pathname === '/') {
-                        e.preventDefault();
-                        setTimeout(() => {
-                          const element = document.querySelector('#projects');
-                          if (element) {
-                            element.scrollIntoView({ behavior: 'smooth' });
-                          }
-                        }, 300);
-                      }
-                    }}
-                  >
-                    Projects
-                  </Link>
-                  <Link 
-                    to="/about" 
-                    className="font-['Open_Sans',_sans-serif] font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-[18px]" 
-                    style={{ fontVariationSettings: "'wdth' 100" }}
+                <div className="flex flex-col gap-8 mt-12 pl-10 h-full pb-12">
+                  <Link
+                    to="/"
+                    className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-lg"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    About Me
+                    Home
                   </Link>
-                  <a 
+                  <div className="flex flex-col gap-5">
+                    <span className="text-xs text-gray-400 uppercase tracking-wider">Case Studies</span>
+                    <Link
+                      to="/projects/support-system"
+                      className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-base"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      IBM Skills Network Support
+                    </Link>
+                    <a
+                      href="https://mark-ai-grader.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-base"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Mark AI Grader ↗
+                    </a>
+                    <Link
+                      to="/projects/design-system"
+                      className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-base"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Harmony Design System
+                    </Link>
+                  </div>
+                  <a
                     href="https://drive.google.com/file/d/1R-n2lwAQBe7h4YEzRpXrCl4HqPYnYE-4/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-['Open_Sans',_sans-serif] font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-[18px]" 
-                    style={{ fontVariationSettings: "'wdth' 100" }}
+                    className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-lg"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Resume
                   </a>
+                  <Link
+                    to="/about"
+                    className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-lg"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    About Me
+                  </Link>
+                  <div className="flex items-center gap-4 mt-auto">
+                    <a href="https://www.linkedin.com/in/boyun-leung/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-[#9CA3AF] hover:text-[#1938d1] transition-colors">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                        <rect width="4" height="12" x="2" y="9"/>
+                        <circle cx="4" cy="4" r="2"/>
+                      </svg>
+                    </a>
+                    <a href="https://www.instagram.com/boyunleung/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-[#9CA3AF] hover:text-[#1938d1] transition-colors">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                      </svg>
+                    </a>
+                    <a href="https://github.com/swiftplicity" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-[#9CA3AF] hover:text-[#1938d1] transition-colors">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                        <path d="M9 18c-4.51 2-5-2-7-2"/>
+                      </svg>
+                    </a>
+                    <a href="mailto:boyun.leung@gmail.com" aria-label="Email" className="text-[#9CA3AF] hover:text-[#1938d1] transition-colors">
+                      <Mail size={18} />
+                    </a>
+                  </div>
                 </div>
               </SheetContent>
             </Sheet>
+
+            {/* Center: Logo */}
+            <Link to="/">
+              <Heartlogo1Traced className={location.pathname === '/' ? 'text-white hover:text-[#1C4ED8]' : 'text-[#1938D1]/70 hover:text-[#1938D1]'} />
+            </Link>
+
+            {/* Right: Resume */}
+            <a
+              href="https://drive.google.com/file/d/1R-n2lwAQBe7h4YEzRpXrCl4HqPYnYE-4/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`font-regular transition-colors text-sm ${location.pathname === '/' ? 'text-white/70 hover:text-white' : 'text-[#1938D1]/70 hover:text-[#1938D1]'}`}
+            >
+              Resume
+            </a>
+          </div>
           </div>
         </nav>
 
         {/* Page Content */}
+        <div className={`flex-1 flex flex-col ${location.pathname === '/' ? 'overflow-hidden' : 'overflow-y-auto'}`}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutMe />} />
@@ -311,6 +347,7 @@ function Layout() {
           <Route path="/projects/design-system" element={<DesignSystem />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        </div>
       </div>
     </div>
   );

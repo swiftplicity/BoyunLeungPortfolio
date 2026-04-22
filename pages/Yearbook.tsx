@@ -1,4 +1,4 @@
-import { Linkedin, Instagram, Github, Mail } from "lucide-react";
+import { LinkedinIcon, InstagramIcon, GithubIcon, MailIcon } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -107,7 +107,7 @@ export function Yearbook() {
 
   return (
     <>
-    <div className="mx-auto max-w-4xl px-8 py-12">
+    <div className="w-full max-w-[1728px] mx-auto px-4 md:px-6 xl:px-20 py-12">
 
       {/* Project Header */}
       <h1 className="mb-4 text-[#1e3a5f] text-[32px] sm:text-[40px]" style={{ fontFamily: "'Open Sans', sans-serif" }}>
@@ -118,7 +118,7 @@ export function Yearbook() {
       </p>
 
       {/* Hero Image */}
-      <div className="mb-8 aspect-[16/10] w-full overflow-hidden rounded-lg bg-gray-100">
+      <div className="mb-8 aspect-[16/10] w-full overflow-hidden rounded-md bg-gray-100">
         <img
           src={yearbookCover}
           alt="Spiral Staircase 17/18 Yearbook Cover"
@@ -161,7 +161,7 @@ export function Yearbook() {
             
           {/* 2016-2017 Color Palette Image */}
             <div className="my-8">
-              <div className="mb-3 rounded-lg overflow-hidden shadow-lg">
+              <div className="mb-3 rounded-md overflow-hidden shadow-lg">
                 <img
                   src={colorPalette2016}
                   alt="2016-2017 Yearbook Colour Palette and Typography"
@@ -180,7 +180,7 @@ export function Yearbook() {
 
             {/* 2016-2017 Layouts Carousel */}
             <div className="my-8">
-              <div className="mb-3 rounded-lg overflow-hidden shadow-lg relative bg-gray-300">
+              <div className="mb-3 rounded-md overflow-hidden shadow-lg relative bg-gray-300">
                 <div className="relative h-[500px] sm:h-[600px] flex items-center justify-center">
                   <img
                     src={layouts[currentSlide].src}
@@ -246,7 +246,7 @@ export function Yearbook() {
 
             {/* 2017-2018 Illustrations Image */}
             <div className="my-8">
-              <div className="mb-3 rounded-lg overflow-hidden shadow-lg">
+              <div className="mb-3 rounded-md overflow-hidden shadow-lg">
                 <img
                   src={illustrations2017}
                   alt="Illustrations from 2017-2018 yearbook"
@@ -268,7 +268,7 @@ export function Yearbook() {
               </p>
             {/* 2017-2018 Colour Palette and Fonts */}
             <div className="my-8">
-              <div className="mb-3 rounded-lg overflow-hidden shadow-lg">
+              <div className="mb-3 rounded-md overflow-hidden shadow-lg">
                 <img
                   src={colorPalette2017}
                   alt="Colour palette and typography for 2017-2018 yearbook"
@@ -286,7 +286,7 @@ export function Yearbook() {
 
             {/* 2017-2018 Layouts Carousel */}
             <div className="my-8">
-              <div className="mb-3 rounded-lg overflow-hidden shadow-lg relative bg-gray-300">
+              <div className="mb-3 rounded-md overflow-hidden shadow-lg relative bg-gray-300">
                 <div className="relative h-[500px] sm:h-[600px] flex items-center justify-center">
                   <img
                     src={layouts2017[currentSlide2017].src}
@@ -354,9 +354,6 @@ export function Yearbook() {
 
         {/* Footer */}
         <div className="border-t border-gray-200 pt-12 mt-12">
-          <h2 className="mb-6 font-['Open_Sans',_sans-serif] text-[#1938D1] text-[18px] sm:text-[20px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-            Let's Connect
-          </h2>
           <div className="flex items-center gap-6">
             <a 
               href="https://www.linkedin.com/in/boyun-leung/" 
@@ -365,16 +362,16 @@ export function Yearbook() {
               className="text-[#1938D1] hover:opacity-70 transition-opacity"
               aria-label="LinkedIn"
             >
-              <Linkedin size={28} />
+              <LinkedinIcon size={28} />
             </a>
             <a 
               href="https://www.instagram.com/boyunleung/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-[#1938D1] hover:opacity-70 transition-opacity"
-              aria-label="Instagram"
+              aria-label="InstagramIcon"
             >
-              <Instagram size={28} />
+              <InstagramIcon size={28} />
             </a>
             <a 
               href="https://github.com/swiftplicity" 
@@ -383,14 +380,14 @@ export function Yearbook() {
               className="text-[#1938D1] hover:opacity-70 transition-opacity"
               aria-label="GitHub"
             >
-              <Github size={28} />
+              <GithubIcon size={28} />
             </a>
             <a 
               href="mailto:boyun.leung@gmail.com" 
               className="text-[#1938D1] hover:opacity-70 transition-opacity"
               aria-label="Email"
             >
-              <Mail size={28} />
+              <MailIcon size={28} />
             </a>
           </div>
         </div>

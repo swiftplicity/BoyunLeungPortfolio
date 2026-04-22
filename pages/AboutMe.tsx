@@ -1,4 +1,4 @@
-import { Linkedin, Instagram, Github, Mail } from "lucide-react";
+import { LinkedinIcon, InstagramIcon, GithubIcon, MailIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const profileImage = '/assets/profile/boyun-leung.png';
@@ -52,11 +52,8 @@ export function AboutMe() {
     </div>
 
     {/* Footer */}
-    <div className="mx-auto max-w-6xl px-8 pb-16">
+    <div className="w-full max-w-[1728px] mx-auto px-4 md:px-6 xl:px-20 pb-16">
       <div className="border-t border-gray-200 pt-12">
-        <h2 className="mb-6 font-['Open_Sans',_sans-serif] text-[#1938D1] text-[18px] sm:text-[20px]" style={{ fontVariationSettings: "'wdth' 100" }}>
-          Let's Connect
-        </h2>
         <div className="flex items-center gap-6">
           <a 
             href="https://www.linkedin.com/in/boyun-leung/" 
@@ -65,16 +62,16 @@ export function AboutMe() {
             className="text-[#1938D1] hover:opacity-70 transition-opacity"
             aria-label="LinkedIn"
           >
-            <Linkedin size={28} />
+            <LinkedinIcon size={28} />
           </a>
           <a 
             href="https://www.instagram.com/boyunleung/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="text-[#1938D1] hover:opacity-70 transition-opacity"
-            aria-label="Instagram"
+            aria-label="InstagramIcon"
           >
-            <Instagram size={28} />
+            <InstagramIcon size={28} />
           </a>
           <a 
             href="https://github.com/swiftplicity" 
@@ -83,14 +80,14 @@ export function AboutMe() {
             className="text-[#1938D1] hover:opacity-70 transition-opacity"
             aria-label="GitHub"
           >
-            <Github size={28} />
+            <GithubIcon size={28} />
           </a>
           <a 
             href="mailto:boyun.leung@gmail.com" 
             className="text-[#1938D1] hover:opacity-70 transition-opacity"
             aria-label="Email"
           >
-            <Mail size={28} />
+            <MailIcon size={28} />
           </a>
         </div>
       </div>
