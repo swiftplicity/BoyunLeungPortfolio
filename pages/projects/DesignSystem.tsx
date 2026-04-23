@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { ArrowLeftIcon, ArrowRightIcon, LinkedinIcon, InstagramIcon, GithubIcon, MailIcon } from "lucide-react";
+import { LinkedinIcon, InstagramIcon, GithubIcon, MailIcon } from "lucide-react";
 
 const designSystemImage = '/assets/projects/design-system/harmony-design-system.png';
 const colorPaletteImage = '/assets/projects/design-system/color-palette-guidelines.png';
@@ -215,27 +214,6 @@ export function DesignSystem() {
           </ol>
         </SectionRow>
 
-        {/* Navigation */}
-        <div className="pb-12 flex justify-between items-center border-t border-gray-200 pt-8">
-          <Link
-            to="/projects/support-system"
-            onClick={() => window.scrollTo(0, 0)}
-            className="inline-flex items-center justify-center gap-2 rounded-md border border-[#1938D1] bg-transparent px-6 py-3 text-[#1938D1] hover:bg-[#1938D1]/5 transition-colors text-[14px] w-[140px]"
-            style={{ fontFamily: "'Open Sans', sans-serif" }}
-          >
-            <ArrowLeftIcon size={16} />
-            Previous
-          </Link>
-          <Link
-            to="/projects/support-system"
-            onClick={() => window.scrollTo(0, 0)}
-            className="inline-flex items-center justify-center gap-2 rounded-md border border-[#1938D1] bg-transparent px-6 py-3 text-[#1938D1] hover:bg-[#1938D1]/5 transition-colors text-[14px] w-[140px]"
-            style={{ fontFamily: "'Open Sans', sans-serif" }}
-          >
-            Next
-            <ArrowRightIcon size={16} />
-          </Link>
-        </div>
 
       </div>
     </div>

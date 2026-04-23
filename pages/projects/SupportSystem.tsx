@@ -1,5 +1,7 @@
 import { LinkedinIcon, InstagramIcon, GithubIcon, MailIcon } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { ResponsibilitiesConstellation } from "../../components/ResponsibilitiesConstellation";
+import { ImpactMetrics } from "../../components/ImpactMetrics";
 
 const supportSystemImage = '/assets/projects/support-system/support-cover-mock.webp';
 const dashboardImage = '/assets/projects/support-system/ibm-skills-network-support.webp';
@@ -48,6 +50,7 @@ const sections = [
   {
     label: 'Responsibilities',
     image: supportSystemImage,
+    visual: <ResponsibilitiesConstellation />,
     content: (
       <ul>
         {[
@@ -110,6 +113,7 @@ const sections = [
   {
     label: 'Outcome',
     image: dashboardImage,
+    visual: <ImpactMetrics />,
     content: (
       <div>
         <ul className="mb-4">
@@ -284,11 +288,13 @@ export function SupportSystem() {
               {section.label}
             </p>
             <div className="mb-5">{section.content}</div>
-            <img
-              src={section.image}
-              alt={section.label}
-              className="w-full aspect-[3/2] object-cover rounded-2xl shadow-lg"
-            />
+            {section.visual ?? (
+              <img
+                src={section.image}
+                alt={section.label}
+                className="w-full aspect-[3/2] object-cover rounded-2xl shadow-lg"
+              />
+            )}
           </div>
         ))}
         <div className="pt-6">
@@ -364,11 +370,13 @@ export function SupportSystem() {
             ref={el => { imageRefs.current[i] = el; }}
             className="snap-start snap-always mb-6 aspect-[3/2] max-h-[78vh] w-auto ml-auto"
           >
-            <img
-              src={section.image}
-              alt={section.label}
-              className="w-full h-full object-cover rounded-2xl shadow-lg"
-            />
+            {section.visual ?? (
+              <img
+                src={section.image}
+                alt={section.label}
+                className="w-full h-full object-cover rounded-2xl shadow-lg"
+              />
+            )}
           </div>
         ))}
       </div>
