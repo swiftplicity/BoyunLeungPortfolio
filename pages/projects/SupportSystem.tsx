@@ -1,11 +1,11 @@
+import React, { useState, useEffect, useRef } from "react";
 import { LinkedinIcon, InstagramIcon, GithubIcon, MailIcon } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
 import { ResponsibilitiesConstellation } from "../../components/ResponsibilitiesConstellation";
 import { ImpactMetrics } from "../../components/ImpactMetrics";
 
 const supportSystemImage = '/assets/projects/support-system/support-cover-mock.webp';
 const dashboardImage = '/assets/projects/support-system/ibm-skills-network-support.webp';
-const overviewGif = '/assets/support demo.gif';
+const overviewVideo = '/assets/projects/support demo.mp4';
 const oldTicketImage = '/assets/projects/support-system/old-ticket-issues-page.webp';
 const agentFlowImage = '/assets/projects/support-system/defining-new-support-agent-flow.webp';
 const newTicketImage = '/assets/projects/support-system/new-ticket-issues-page.webp';
@@ -69,7 +69,7 @@ const sections = [
   },
   {
     label: 'Overview',
-    image: overviewGif,
+    image: overviewVideo,
     content: (
       <div>
         <p className="text-gray-800 text-sm leading-relaxed mb-6" style={ps}>
@@ -115,11 +115,9 @@ const sections = [
     image: dashboardImage,
     visual: <ImpactMetrics />,
     content: (
-      <div>
-        <ul className="mb-4">
-          {['50% reduction in incoming support requests', '6% → 100% increase in addressed support tickets', 'Improved efficiency and response consistency across products'].map(i => <Bullet key={i}>{i}</Bullet>)}
-        </ul>
-      </div>
+      <p className="text-gray-800 text-sm leading-relaxed" style={ps}>
+        By shifting support from reactive to proactive, I helped cut incoming requests by half and took ticket coverage from 6% to 100%, creating a faster, more consistent experience across the board.
+      </p>
     ),
   },
   {
@@ -288,12 +286,23 @@ export function SupportSystem() {
               {section.label}
             </p>
             <div className="mb-5">{section.content}</div>
-            {section.visual ?? (
-              <img
-                src={section.image}
-                alt={section.label}
-                className="w-full aspect-[3/2] object-cover rounded-2xl shadow-lg"
-              />
+            {section.visual ? React.cloneElement(section.visual, { isActive: i === activeIdx }) : (
+              section.image.endsWith('.mp4') ? (
+                <video
+                  src={section.image}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full aspect-[3/2] object-cover rounded-2xl shadow-lg"
+                />
+              ) : (
+                <img
+                  src={section.image}
+                  alt={section.label}
+                  className="w-full aspect-[3/2] object-cover rounded-2xl shadow-lg"
+                />
+              )
             )}
           </div>
         ))}
@@ -370,12 +379,23 @@ export function SupportSystem() {
             ref={el => { imageRefs.current[i] = el; }}
             className="snap-start snap-always mb-6 aspect-[3/2] max-h-[78vh] w-auto ml-auto"
           >
-            {section.visual ?? (
-              <img
-                src={section.image}
-                alt={section.label}
-                className="w-full h-full object-cover rounded-2xl shadow-lg"
-              />
+            {section.visual ? React.cloneElement(section.visual, { isActive: i === activeIdx }) : (
+              section.image.endsWith('.mp4') ? (
+                <video
+                  src={section.image}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover rounded-2xl shadow-lg"
+                />
+              ) : (
+                <img
+                  src={section.image}
+                  alt={section.label}
+                  className="w-full h-full object-cover rounded-2xl shadow-lg"
+                />
+              )
             )}
           </div>
         ))}
