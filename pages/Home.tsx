@@ -127,6 +127,12 @@ export default function Home() {
                style={{ fontFamily: "'IBM Plex Serif', serif" }}>
                 I design delightful experiences
               </p>
+              <p className="animate-slide-up-d1 text-white/80 text-xl font-light">
+                Currently Designer @{" "}
+                <a href="https://skills.network/" target="_blank" rel="noopener noreferrer" className="hover:text-white/80 transition-colors underline underline-offset-2">IBM Skills Network</a>
+                {" "}and Cofounder of{" "}
+                <a href="https://www.foryourdelight.ca/" target="_blank" rel="noopener noreferrer" className="hover:text-white/80 transition-colors underline underline-offset-2">foryourdelight</a>
+              </p>
 
               <div className="animate-slide-up-d2 mt-10 grid grid-cols-3 gap-4">
                   {exploreProjects.map((project, index) => (

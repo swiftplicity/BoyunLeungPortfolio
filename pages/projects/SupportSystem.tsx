@@ -218,7 +218,7 @@ const sections = [
         </p>
         <p className="text-gray-800 text-sm leading-relaxed mb-1" style={ps}>The biggest insight was that:</p>
         <p className="text-blue-900 text-sm font-medium leading-relaxed mb-4" style={ps}>
-          The most effective way to scale support is not to handle more tickets — but to prevent them.
+          The most effective way to scale support is not to handle more tickets but to prevent them.
         </p>
         <p className="text-gray-800 text-sm mb-2" style={ps}>By combining product thinking, data analysis, and design execution, I was able to:</p>
         <ul className="mb-4">
