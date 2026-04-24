@@ -2,13 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import { LinkedinIcon, InstagramIcon, GithubIcon, MailIcon } from "lucide-react";
 import { ResponsibilitiesConstellation } from "../../components/ResponsibilitiesConstellation";
 import { ImpactMetrics } from "../../components/ImpactMetrics";
+import { SupportAgentFlow } from "../../components/SupportAgentFlow";
+import { KeyFindings } from "../../components/KeyFindings";
+import { ProactiveAISupport } from "../../components/ProactiveAISupport";
 
 const supportSystemImage = '/assets/projects/support-system/support-cover-mock.webp';
-const dashboardImage = '/assets/projects/support-system/ibm-skills-network-support.webp';
 const overviewVideo = '/assets/projects/support demo.mp4';
-const oldTicketImage = '/assets/projects/support-system/old-ticket-issues-page.webp';
-const agentFlowImage = '/assets/projects/support-system/defining-new-support-agent-flow.webp';
-const newTicketImage = '/assets/projects/support-system/new-ticket-issues-page.webp';
+const oldTicketImage = '/assets/projects/support-system/problem.webp';
+const agentWorkflowImage = '/assets/projects/support-system/agent-workflow-improvements.webp';
+const metricsImage = '/assets/projects/support-system/metrics-visibility.webp';
+const conclusionImage = '/assets/projects/support-system/conclusion.webp';
 
 const ps = { fontFamily: "'Open Sans', sans-serif" };
 
@@ -49,7 +52,6 @@ const sections = [
   },
   {
     label: 'Responsibilities',
-    image: supportSystemImage,
     visual: <ResponsibilitiesConstellation />,
     content: (
       <ul>
@@ -73,16 +75,48 @@ const sections = [
     content: (
       <div>
         <p className="text-gray-800 text-sm leading-relaxed mb-6" style={ps}>
-          The organization supported millions of users across 10+ products, but support was fragmented, inefficient, and difficult to scale.
+          The organization supported millions of users across multiple varied products, but support was fragmented, inefficient, and difficult to scale.
         </p>
         <div className="grid grid-cols-3 gap-4">
-          {[{ num: '4M', label: 'Users' }, { num: '30', label: 'Support Agents' }, { num: '10+', label: 'Products' }].map(({ num, label }) => (
+          {[{ num: '4M+', label: ' End Users' }, { num: '90+', label: 'Support Agents' }, { num: '15+', label: 'Products' }].map(({ num, label }) => (
             <div key={label}>
               <p className="text-blue-900 text-3xl font-semibold leading-tight" style={ps}>{num}</p>
               <p className="text-gray-800 text-xs" style={ps}>{label}</p>
             </div>
           ))}
         </div>
+      </div>
+    ),
+  },
+  {
+    label: 'Outcome',
+    visual: <ImpactMetrics isActive={false} />,
+    content: (
+      <p className="text-gray-800 text-sm leading-relaxed" style={ps}>
+        By shifting support from reactive to proactive, I helped cut incoming requests by half and took ticket coverage from 6% to 100%, creating a faster, more consistent experience across the board.
+      </p>
+    ),
+  },
+  {
+    label: 'Approach',
+    visual: <KeyFindings />,
+    content: (
+      <div>
+        <p className="text-gray-800 text-sm leading-relaxed mb-4" style={ps}>
+          This was an ongoing agile process, where insights were continuously surfaced and addressed through product iteration.
+        </p>
+        <p className="text-gray-800 text-sm mb-3" style={ps}>I worked across:</p>
+        <ul>
+          {[
+            'Stakeholder interviews with support agents',
+            'Continuous review of live tickets and escalation patterns',
+            'Heuristic analysis of agent workflows and tools',
+            'Ticket categorization and trend analysis over time',
+          ].map(i => <Bullet key={i}>{i}</Bullet>)}
+        </ul>
+        <p className="text-gray-800 text-sm leading-relaxed mt-4" style={ps}>
+          Each iteration revealed additional friction points across different layers of the system.
+        </p>
       </div>
     ),
   },
@@ -111,41 +145,8 @@ const sections = [
     ),
   },
   {
-    label: 'Outcome',
-    image: dashboardImage,
-    visual: <ImpactMetrics />,
-    content: (
-      <p className="text-gray-800 text-sm leading-relaxed" style={ps}>
-        By shifting support from reactive to proactive, I helped cut incoming requests by half and took ticket coverage from 6% to 100%, creating a faster, more consistent experience across the board.
-      </p>
-    ),
-  },
-  {
-    label: 'Approach',
-    image: oldTicketImage,
-    content: (
-      <div>
-        <p className="text-gray-800 text-sm leading-relaxed mb-4" style={ps}>
-          This was an ongoing agile process, where insights were continuously surfaced and addressed through product iteration.
-        </p>
-        <p className="text-gray-800 text-sm mb-3" style={ps}>I worked across:</p>
-        <ul>
-          {[
-            'Stakeholder interviews with support agents',
-            'Continuous review of live tickets and escalation patterns',
-            'Heuristic analysis of agent workflows and tools',
-            'Ticket categorization and trend analysis over time',
-          ].map(i => <Bullet key={i}>{i}</Bullet>)}
-        </ul>
-        <p className="text-gray-800 text-sm leading-relaxed mt-4" style={ps}>
-          Each iteration revealed additional friction points across different layers of the system.
-        </p>
-      </div>
-    ),
-  },
-  {
     label: 'Proactive AI Support',
-    image: agentFlowImage,
+    visual: <ProactiveAISupport />,
     content: (
       <div>
         <ul className="mb-2">
@@ -161,7 +162,7 @@ const sections = [
   },
   {
     label: 'Agent Workflow Improvements',
-    image: agentFlowImage,
+    image: agentWorkflowImage,
     content: (
       <div>
         <ul className="mb-2">
@@ -177,7 +178,7 @@ const sections = [
   },
   {
     label: 'Cross-Team Feedback Loops',
-    image: agentFlowImage,
+    visual: <SupportAgentFlow />,
     content: (
       <div>
         <ul className="mb-2">
@@ -193,7 +194,7 @@ const sections = [
   },
   {
     label: 'Metrics & Visibility',
-    image: agentFlowImage,
+    image: metricsImage,
     content: (
       <div>
         <ul className="mb-2">
@@ -209,7 +210,7 @@ const sections = [
   },
   {
     label: 'Conclusion',
-    image: newTicketImage,
+    image: conclusionImage,
     content: (
       <div>
         <p className="text-gray-800 text-sm leading-relaxed mb-4" style={ps}>
@@ -234,6 +235,7 @@ const sections = [
 
 export function SupportSystem() {
   const [activeIdx, setActiveIdx] = useState(0);
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -268,6 +270,19 @@ export function SupportSystem() {
 
   return (
     <div className="flex-1 min-h-0 flex overflow-hidden max-w-[1728px] mx-auto w-full">
+      {lightboxSrc && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
+          onClick={() => setLightboxSrc(null)}
+        >
+          <img
+            src={lightboxSrc}
+            alt="Expanded view"
+            className="max-w-[90vw] max-h-[90vh] object-contain rounded-2xl shadow-2xl"
+            onClick={e => e.stopPropagation()}
+          />
+        </div>
+      )}
 
       {/* ── Mobile layout (< lg): stacked sections ── */}
       <div className="lg:hidden flex-1 overflow-y-auto px-4 md:px-6 pt-8 pb-10">
@@ -300,7 +315,8 @@ export function SupportSystem() {
                 <img
                   src={section.image}
                   alt={section.label}
-                  className="w-full aspect-[3/2] object-cover rounded-2xl shadow-lg"
+                  className="w-full aspect-[3/2] object-cover rounded-2xl shadow-lg cursor-zoom-in"
+                  onClick={() => setLightboxSrc(section.image)}
                 />
               )
             )}
@@ -393,7 +409,8 @@ export function SupportSystem() {
                 <img
                   src={section.image}
                   alt={section.label}
-                  className="w-full h-full object-cover rounded-2xl shadow-lg"
+                  className="w-full h-full object-cover rounded-2xl shadow-lg cursor-zoom-in"
+                  onClick={() => setLightboxSrc(section.image)}
                 />
               )
             )}
