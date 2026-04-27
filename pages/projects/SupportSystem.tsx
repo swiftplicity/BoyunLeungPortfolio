@@ -78,7 +78,7 @@ const sections = [
           The organization supported millions of users across multiple varied products, but support was fragmented, inefficient, and difficult to scale.
         </p>
         <div className="grid grid-cols-3 gap-4">
-          {[{ num: '4M+', label: ' End Users' }, { num: '90+', label: 'Support Agents' }, { num: '15+', label: 'Products' }].map(({ num, label }) => (
+          {[{ num: '8M+', label: ' End Users' }, { num: '90+', label: 'Support Agents' }, { num: '15+', label: 'Products' }].map(({ num, label }) => (
             <div key={label}>
               <p className="text-blue-900 text-3xl font-semibold leading-tight" style={ps}>{num}</p>
               <p className="text-gray-800 text-xs" style={ps}>{label}</p>

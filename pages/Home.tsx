@@ -1,9 +1,11 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 const designSystemImage = '/assets/projects/design-system/harmony-design-system.png';
 const markAIImage = '/assets/projects/mark-ai-grader.png';
 const supportSystemImage = '/assets/projects/support-system/support-cover-mock.jpg';
+const snDesignImage = '/assets/projects/SN Design/sn-design-cover.webp';
 
 type FeaturedProject = {
   id: string;
@@ -41,6 +43,12 @@ const exploreProjects: ExploreProject[] = [
     route: "/projects/support-system",
   },
   {
+    title: "SN Design System",
+    description: "I scaled the IBM Skills Network design system to improve consistency and developer adoption",
+    image: snDesignImage,
+    route: "/projects/sn-design-system",
+  },
+  {
     title: "Mark AI Grader",
     description: "I designed features to enhance the author's and learner's experience for an AI grader",
     image: markAIImage,
@@ -61,6 +69,7 @@ export default function Home() {
   const leaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const navigate = useNavigate();
 
+  const carouselRef = useRef<HTMLDivElement>(null);
   const hoveredProject = featuredProjects.find(p => p.id === hoveredFeatured) ?? null;
   const activeProject = hoveredProject ?? leavingProject;
   const isLeaving = !hoveredProject && !!leavingProject;
@@ -134,14 +143,18 @@ export default function Home() {
                 <a href="https://www.foryourdelight.ca/" target="_blank" rel="noopener noreferrer" className="hover:text-white/80 transition-colors underline underline-offset-2">foryourdelight</a>
               </p>
 
-              <div className="animate-slide-up-d2 mt-10 grid grid-cols-3 gap-4">
+              <div className="animate-slide-up-d2 mt-10 relative">
+                <div
+                  ref={carouselRef}
+                  className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide"
+                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                >
                   {exploreProjects.map((project, index) => (
                     <div
                       key={index}
                       onClick={() => handleExploreClick(project)}
-                      className={`group bg-white rounded-md overflow-hidden flex flex-col ${!project.comingSoon ? 'cursor-pointer' : 'cursor-default'}`}
+                      className={`group bg-white rounded-md overflow-hidden flex flex-col flex-none w-[calc(33.33%-11px)] snap-start ${!project.comingSoon ? 'cursor-pointer' : 'cursor-default'}`}
                     >
-                      {/* Image */}
                       <div className="relative aspect-video overflow-hidden flex-shrink-0">
                         <img
                           src={project.image}
@@ -159,13 +172,27 @@ export default function Home() {
                           </div>
                         )}
                       </div>
-                      {/* Text */}
                       <div className="p-4 flex flex-col gap-0.5">
                         <span className="text-sm text-gray-500">{project.title}</span>
                         <p className="text-sm text-gray-800 font-light leading-snug">{project.description}</p>
                       </div>
                     </div>
                   ))}
+                </div>
+                <div className="flex gap-2 mt-3 justify-end">
+                  <button
+                    onClick={() => carouselRef.current?.scrollBy({ left: -300, behavior: 'smooth' })}
+                    className="p-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors"
+                  >
+                    <ChevronLeftIcon size={16} />
+                  </button>
+                  <button
+                    onClick={() => carouselRef.current?.scrollBy({ left: 300, behavior: 'smooth' })}
+                    className="p-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors"
+                  >
+                    <ChevronRightIcon size={16} />
+                  </button>
+                </div>
               </div>
             </div>
           )}

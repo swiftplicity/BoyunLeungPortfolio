@@ -8,6 +8,7 @@ import { AboutMe } from "./pages/AboutMe";
 import { Yearbook } from "./pages/Yearbook";
 import { SupportSystem } from "./pages/projects/SupportSystem";
 import { DesignSystem } from "./pages/projects/DesignSystem";
+import { SNDesignSystem } from "./pages/projects/SNDesignSystem";
 
 interface Sparkle {
   id: number;
@@ -267,6 +268,13 @@ function Layout() {
                       Mark AI Grader ↗
                     </a>
                     <Link
+                      to="/projects/sn-design-system"
+                      className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-base"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      SN Design System
+                    </Link>
+                    <Link
                       to="/projects/design-system"
                       className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-base"
                       onClick={() => setMobileMenuOpen(false)}
@@ -345,6 +353,7 @@ function Layout() {
           <Route path="/yearbook" element={<Yearbook />} />
           <Route path="/projects/support-system" element={<SupportSystem />} />
           <Route path="/projects/design-system" element={<DesignSystem />} />
+          <Route path="/projects/sn-design-system" element={<SNDesignSystem />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         </div>
