@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { LinkedinIcon, InstagramIcon, GithubIcon, MailIcon } from "lucide-react";
 import { DesignPrinciples } from "../../components/DesignPrinciples";
 
@@ -208,10 +209,19 @@ const sections = [
 ];
 
 export function SNDesignSystem() {
+  const location = useLocation();
+  const hasHeroTransition = !!(location.state as { heroFromRect?: unknown })?.heroFromRect;
+  const [heroImageVisible, setHeroImageVisible] = useState(!hasHeroTransition);
   const [activeIdx, setActiveIdx] = useState(0);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (!hasHeroTransition) return;
+    const timer = setTimeout(() => setHeroImageVisible(true), 600);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const container = scrollRef.current;
@@ -360,7 +370,9 @@ export function SNDesignSystem() {
           <div
             key={i}
             ref={el => { imageRefs.current[i] = el; }}
+            id={i === 0 ? 'sn-design-intro-image' : undefined}
             className="snap-start snap-always mb-6 aspect-[3/2] max-h-[78vh] w-auto ml-auto"
+            style={i === 0 ? { opacity: heroImageVisible ? 1 : 0, transition: 'opacity 150ms ease' } : undefined}
           >
             {'visual' in section && section.visual ? React.cloneElement(section.visual as React.ReactElement, { isActive: i === activeIdx }) : section.image.endsWith('.mp4') ? (
               <video

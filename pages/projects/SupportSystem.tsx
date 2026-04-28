@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom";
 import { LinkedinIcon, InstagramIcon, GithubIcon, MailIcon } from "lucide-react";
 import { ResponsibilitiesConstellation } from "../../components/ResponsibilitiesConstellation";
 import { ImpactMetrics } from "../../components/ImpactMetrics";
@@ -234,10 +235,19 @@ const sections = [
 ];
 
 export function SupportSystem() {
+  const location = useLocation();
+  const hasHeroTransition = !!(location.state as { heroFromRect?: unknown })?.heroFromRect;
+  const [heroImageVisible, setHeroImageVisible] = useState(!hasHeroTransition);
   const [activeIdx, setActiveIdx] = useState(0);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (!hasHeroTransition) return;
+    const timer = setTimeout(() => setHeroImageVisible(true), 600);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Detect which image is in view → update active section
   useEffect(() => {
@@ -393,7 +403,9 @@ export function SupportSystem() {
           <div
             key={i}
             ref={el => { imageRefs.current[i] = el; }}
+            id={i === 0 ? 'support-intro-image' : undefined}
             className="snap-start snap-always mb-6 aspect-[3/2] max-h-[78vh] w-auto ml-auto"
+            style={i === 0 ? { opacity: heroImageVisible ? 1 : 0, transition: 'opacity 150ms ease' } : undefined}
           >
             {section.visual ? React.cloneElement(section.visual, { isActive: i === activeIdx }) : (
               section.image.endsWith('.mp4') ? (

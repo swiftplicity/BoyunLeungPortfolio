@@ -70,6 +70,8 @@ export default function Home() {
   const navigate = useNavigate();
 
   const carouselRef = useRef<HTMLDivElement>(null);
+  const heroImageContainerRef = useRef<HTMLDivElement>(null);
+  const exploreImageRefs = useRef<(HTMLDivElement | null)[]>([]);
   const hoveredProject = featuredProjects.find(p => p.id === hoveredFeatured) ?? null;
   const activeProject = hoveredProject ?? leavingProject;
   const isLeaving = !hoveredProject && !!leavingProject;
@@ -87,12 +89,15 @@ export default function Home() {
     leaveTimer.current = setTimeout(() => setLeavingProject(null), 500);
   };
 
-  const handleExploreClick = (project: ExploreProject) => {
+  const handleExploreClick = (project: ExploreProject, imageEl: HTMLDivElement | null) => {
     if (project.comingSoon) return;
     if (project.isExternal) {
       window.open(project.route, '_blank');
     } else {
-      navigate(project.route);
+      const rect = imageEl ? imageEl.getBoundingClientRect() : null;
+      navigate(project.route, {
+        state: rect ? { heroFromRect: { top: rect.top, left: rect.left, width: rect.width, height: rect.height } } : undefined,
+      });
     }
   };
 
@@ -112,7 +117,7 @@ export default function Home() {
               >
                 {activeProject.headline}
               </p>
-              <div className={`${!isLeaving ? 'animate-slide-up-delayed' : ''} rounded-md overflow-hidden`} style={{ height: 'calc(100vh - 280px)' }}>
+              <div ref={heroImageContainerRef} className={`${!isLeaving ? 'animate-slide-up-delayed' : ''} rounded-md overflow-hidden`} style={{ height: 'calc(100vh - 280px)' }}>
                 <img
                   src={activeProject.image}
                   alt={activeProject.label}
@@ -152,10 +157,10 @@ export default function Home() {
                   {exploreProjects.map((project, index) => (
                     <div
                       key={index}
-                      onClick={() => handleExploreClick(project)}
+                      onClick={() => handleExploreClick(project, exploreImageRefs.current[index])}
                       className={`group bg-white rounded-md overflow-hidden flex flex-col flex-none w-[calc(33.33%-11px)] snap-start ${!project.comingSoon ? 'cursor-pointer' : 'cursor-default'}`}
                     >
-                      <div className="relative aspect-video overflow-hidden flex-shrink-0">
+                      <div ref={el => { exploreImageRefs.current[index] = el; }} className="relative aspect-video overflow-hidden flex-shrink-0">
                         <img
                           src={project.image}
                           alt={project.title}
@@ -209,7 +214,14 @@ export default function Home() {
                 key={project.id}
                 onMouseEnter={() => handleProjectEnter(project.id)}
                 onMouseLeave={handleProjectLeave}
-                onClick={() => !project.comingSoon && navigate(project.route)}
+                onClick={() => {
+                  if (project.comingSoon) return;
+                  const el = heroImageContainerRef.current;
+                  const rect = el ? el.getBoundingClientRect() : null;
+                  navigate(project.route, {
+                    state: rect ? { heroFromRect: { top: rect.top, left: rect.left, width: rect.width, height: rect.height } } : undefined,
+                  });
+                }}
                 className={`px-5 py-2 rounded-full text-sm border transition-all duration-200 ${
                   hoveredFeatured === project.id
                     ? 'bg-white text-[#1e3a5f] border-white'

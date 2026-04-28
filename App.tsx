@@ -1,6 +1,6 @@
 import { HashRouter, Routes, Route, Link, useLocation, Navigate } from "react-router-dom";
 import Heartlogo1Traced from "./imports/Heartlogo1Traced1";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Mail } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "./components/ui/sheet";
 import Home from "./pages/Home";
@@ -9,6 +9,99 @@ import { Yearbook } from "./pages/Yearbook";
 import { SupportSystem } from "./pages/projects/SupportSystem";
 import { DesignSystem } from "./pages/projects/DesignSystem";
 import { SNDesignSystem } from "./pages/projects/SNDesignSystem";
+
+type HeroFromRect = { top: number; left: number; width: number; height: number };
+
+const HERO_ROUTE_CONFIG: Record<string, { targetId: string; imageSrc: string; endRadius: string }> = {
+  '/projects/support-system': {
+    targetId: 'support-intro-image',
+    imageSrc: '/assets/projects/support-system/support-cover-mock.webp',
+    endRadius: '1rem',
+  },
+  '/projects/sn-design-system': {
+    targetId: 'sn-design-intro-image',
+    imageSrc: '/assets/projects/SN Design/sn-design-cover.webp',
+    endRadius: '1rem',
+  },
+  '/projects/design-system': {
+    targetId: 'design-system-intro-image',
+    imageSrc: '/assets/projects/design-system/harmony-design-system.png',
+    endRadius: '0px',
+  },
+};
+
+function HeroTransition() {
+  const location = useLocation();
+  const config = HERO_ROUTE_CONFIG[location.pathname];
+  const fromRectRef = useRef<HeroFromRect | undefined>(
+    config
+      ? (location.state as { heroFromRect?: HeroFromRect })?.heroFromRect
+      : undefined
+  );
+  const fromRect = fromRectRef.current;
+  const imgRef = useRef<HTMLImageElement>(null);
+  const [visible, setVisible] = useState(!!fromRect);
+
+  useEffect(() => {
+    if (!fromRect || !config) return;
+    const img = imgRef.current;
+    if (!img) return;
+
+    let retries = 0;
+    const tryAnimate = () => {
+      retries++;
+      if (retries > 60) { setVisible(false); return; }
+      const target = document.getElementById(config.targetId);
+      if (!target) { requestAnimationFrame(tryAnimate); return; }
+
+      const targetRect = target.getBoundingClientRect();
+      img.getBoundingClientRect();
+
+      requestAnimationFrame(() => {
+        img.style.transition = [
+          'top 600ms cubic-bezier(0.4,0,0.2,1)',
+          'left 600ms cubic-bezier(0.4,0,0.2,1)',
+          'width 600ms cubic-bezier(0.4,0,0.2,1)',
+          'height 600ms cubic-bezier(0.4,0,0.2,1)',
+          'border-radius 600ms cubic-bezier(0.4,0,0.2,1)',
+          'opacity 150ms ease 600ms',
+        ].join(', ');
+        img.style.top = `${targetRect.top}px`;
+        img.style.left = `${targetRect.left}px`;
+        img.style.width = `${targetRect.width}px`;
+        img.style.height = `${targetRect.height}px`;
+        img.style.borderRadius = config.endRadius;
+        img.style.opacity = '0';
+      });
+
+      setTimeout(() => setVisible(false), 820);
+    };
+
+    const timer = setTimeout(() => requestAnimationFrame(tryAnimate), 30);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!visible || !fromRect || !config) return null;
+
+  return (
+    <img
+      ref={imgRef}
+      src={config.imageSrc}
+      alt=""
+      style={{
+        position: 'fixed',
+        top: fromRect.top,
+        left: fromRect.left,
+        width: fromRect.width,
+        height: fromRect.height,
+        objectFit: 'cover',
+        borderRadius: '6px',
+        zIndex: 9000,
+        pointerEvents: 'none',
+      }}
+    />
+  );
+}
 
 interface Sparkle {
   id: number;
@@ -358,6 +451,7 @@ function Layout() {
         </Routes>
         </div>
       </div>
+      <HeroTransition key={location.key} />
     </div>
   );
 }

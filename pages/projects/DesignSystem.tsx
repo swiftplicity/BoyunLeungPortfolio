@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { LinkedinIcon, InstagramIcon, GithubIcon, MailIcon } from "lucide-react";
 
 const designSystemImage = '/assets/projects/design-system/harmony-design-system.png';
@@ -24,12 +26,22 @@ function SectionRow({ label, children }: { label: string; children: React.ReactN
 }
 
 export function DesignSystem() {
+  const location = useLocation();
+  const hasHeroTransition = !!(location.state as { heroFromRect?: unknown })?.heroFromRect;
+  const [heroImageVisible, setHeroImageVisible] = useState(!hasHeroTransition);
+
+  useEffect(() => {
+    if (!hasHeroTransition) return;
+    const timer = setTimeout(() => setHeroImageVisible(true), 600);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
     <div className="w-full">
 
       {/* Hero — full width with overlay */}
-      <div className="relative w-full" style={{ minHeight: '60vh' }}>
+      <div id="design-system-intro-image" className="relative w-full" style={{ minHeight: '60vh', opacity: heroImageVisible ? 1 : 0, transition: 'opacity 150ms ease' }}>
         <img
           src={designSystemImage}
           alt="Harmony Design System"
