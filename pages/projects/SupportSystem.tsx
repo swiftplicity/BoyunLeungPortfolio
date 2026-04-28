@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { LinkedinIcon, InstagramIcon, GithubIcon, MailIcon } from "lucide-react";
 import { ResponsibilitiesConstellation } from "../../components/ResponsibilitiesConstellation";
 import { ImpactMetrics } from "../../components/ImpactMetrics";
@@ -428,6 +428,15 @@ export function SupportSystem() {
             )}
           </div>
         ))}
+        <div className="flex justify-center pt-4 pb-14">
+          <Link
+            to="/"
+            className="px-6 py-2 rounded-full border border-gray-300 text-gray-500 text-sm font-light hover:border-blue-900 hover:text-blue-900 transition-colors"
+            style={{ fontFamily: "'Open Sans', sans-serif" }}
+          >
+            Home
+          </Link>
+        </div>
       </div>
 
     </div>
