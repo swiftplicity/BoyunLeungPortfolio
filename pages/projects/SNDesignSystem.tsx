@@ -216,6 +216,14 @@ export function SNDesignSystem() {
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const outerRef = useRef<HTMLDivElement>(null);
+  const leftPanelRef = useRef<HTMLDivElement>(null);
+  const activeIdxRef = useRef(activeIdx);
+  activeIdxRef.current = activeIdx;
+  const lastSectionChangeRef = useRef(0);
+  const isProgrammaticScrollRef = useRef(false);
+  const gestureEndedRef = useRef(true);
+  const wheelIdleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (!hasHeroTransition) return;
@@ -224,12 +232,58 @@ export function SNDesignSystem() {
   }, []);
 
   useEffect(() => {
+    const outer = outerRef.current;
+    const leftPanel = leftPanelRef.current;
+    if (!outer || !leftPanel) return;
+    const handleWheel = (e: WheelEvent) => {
+      if (e.clientX > leftPanel.getBoundingClientRect().right) return;
+      e.preventDefault();
+
+      // Reset idle timer — after 150ms of no wheel events, gesture is considered ended
+      if (wheelIdleTimerRef.current) clearTimeout(wheelIdleTimerRef.current);
+      wheelIdleTimerRef.current = setTimeout(() => {
+        gestureEndedRef.current = true;
+      }, 80);
+
+      // Hard minimum: prevents re-firing during same gesture even if idle timer misfires
+      const now = Date.now();
+      if (now - lastSectionChangeRef.current < 400) return;
+
+      // Only trigger on the first event of a new gesture
+      if (!gestureEndedRef.current) return;
+      gestureEndedRef.current = false;
+      lastSectionChangeRef.current = now;
+
+      if (e.deltaY > 0) {
+        const next = Math.min(activeIdxRef.current + 1, sections.length - 1);
+        if (next !== activeIdxRef.current) {
+          setActiveIdx(next);
+          handleSectionClick(next);
+          leftPanel.scrollTop = 0;
+        }
+      } else if (e.deltaY < 0) {
+        const prev = Math.max(activeIdxRef.current - 1, 0);
+        if (prev !== activeIdxRef.current) {
+          setActiveIdx(prev);
+          handleSectionClick(prev);
+          leftPanel.scrollTop = leftPanel.scrollHeight;
+        }
+      }
+    };
+    outer.addEventListener('wheel', handleWheel, { passive: false });
+    return () => {
+      outer.removeEventListener('wheel', handleWheel);
+      if (wheelIdleTimerRef.current) clearTimeout(wheelIdleTimerRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && !isProgrammaticScrollRef.current) {
             const idx = imageRefs.current.indexOf(entry.target as HTMLDivElement);
             if (idx !== -1) setActiveIdx(idx);
           }
@@ -245,13 +299,15 @@ export function SNDesignSystem() {
     const container = scrollRef.current;
     const target = imageRefs.current[idx];
     if (container && target) {
+      isProgrammaticScrollRef.current = true;
       const top = target.getBoundingClientRect().top - container.getBoundingClientRect().top + container.scrollTop;
       container.scrollTo({ top, behavior: 'smooth' });
+      setTimeout(() => { isProgrammaticScrollRef.current = false; }, 700);
     }
   };
 
   return (
-    <div className="flex-1 min-h-0 flex overflow-hidden max-w-[1728px] mx-auto w-full">
+    <div ref={outerRef} className="flex-1 min-h-0 flex overflow-hidden max-w-[1728px] mx-auto w-full">
       {lightboxSrc && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
@@ -313,7 +369,7 @@ export function SNDesignSystem() {
       </div>
 
       {/* ── Desktop layout (>= lg): 2-column ── */}
-      <div className="hidden lg:flex flex-[1] flex-col pl-4 md:pl-6 xl:pl-20 pr-10 pt-4 pb-10 overflow-y-auto">
+      <div ref={leftPanelRef} className="hidden lg:flex flex-[1] flex-col pl-4 md:pl-6 xl:pl-20 pr-10 pt-4 pb-10 overflow-y-auto">
         <h1
           className="text-blue-900 text-xl font-semibold leading-snug mb-8 shrink-0"
           style={{ fontFamily: "'Open Sans', sans-serif" }}
