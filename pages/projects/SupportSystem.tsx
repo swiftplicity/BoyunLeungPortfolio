@@ -271,7 +271,7 @@ export function SupportSystem() {
         gestureEndedRef.current = true;
       }, 80);
 
-      // Hard minimum: prevents re-firing during same gesture even if idle timer misfires
+      // Safety gap for physical scroll wheels
       const now = Date.now();
       if (now - lastSectionChangeRef.current < 400) return;
 
@@ -400,16 +400,16 @@ export function SupportSystem() {
 
       {/* ── Desktop layout (>= lg): 2-column ── */}
       {/* Left Panel: Title + collapsible accordion rows */}
-      <div ref={leftPanelRef} className="hidden lg:flex flex-[1] flex-col pl-4 md:pl-6 xl:pl-20 pr-10 pt-4 pb-10 overflow-y-auto">
+      <div ref={leftPanelRef} className="hidden lg:flex flex-[1] flex-col pl-4 md:pl-6 xl:pl-20 pr-10 pt-4 pb-10 overflow-hidden">
         <h1
-          className="text-blue-900 text-xl font-semibold leading-snug mb-8 shrink-0"
+          className="text-blue-900 text-2xl font-semibold leading-snug mb-4 shrink-0"
           style={{ fontFamily: "'Open Sans', sans-serif" }}
         >
           Skills Network Support
         </h1>
 
         {/* Accordion rows */}
-        <div className="flex-1">
+        <div className="flex-1 overflow-y-auto min-h-0">
           {sections.map((section, i) => (
             <div key={i}>
               <button

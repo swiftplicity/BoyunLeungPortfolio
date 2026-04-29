@@ -164,7 +164,7 @@ const sections = [
     content: (
       <div>
         <p className="text-gray-800 text-sm leading-relaxed mb-4" style={ps}>
-          A design sysytem is worthless without adoption. Since this team heavily consists of developers it was important to ensure the design system was also usable by developers. For this we built a wiki that held the documentation foreach component and provided the code for developers to use. The issue I noticed was that many developers did not even know to address the wiki. I addressed this through gap through multiple changes:
+          A design system is worthless without adoption. Since this team heavily consists of developers it was important to ensure the design system was also usable by developers. For this we built a wiki that held the documentation foreach component and provided the code for developers to use. The issue I noticed was that many developers did not even know to address the wiki. I addressed this through gap through multiple changes:
         </p>
         <ul>
           {[
@@ -212,6 +212,7 @@ export function SNDesignSystem() {
   const location = useLocation();
   const hasHeroTransition = !!(location.state as { heroFromRect?: unknown })?.heroFromRect;
   const [heroImageVisible, setHeroImageVisible] = useState(!hasHeroTransition);
+  const [transitionDone, setTransitionDone] = useState(!hasHeroTransition);
   const [activeIdx, setActiveIdx] = useState(0);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -226,9 +227,17 @@ export function SNDesignSystem() {
   const wheelIdleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    // Pre-decode the hero image so it's ready the moment the transition reveals it
+    const preload = new Image();
+    preload.src = coverImage;
+    preload.decode().catch(() => {});
+  }, []);
+
+  useEffect(() => {
     if (!hasHeroTransition) return;
     const timer = setTimeout(() => setHeroImageVisible(true), 600);
-    return () => clearTimeout(timer);
+    const doneTimer = setTimeout(() => setTransitionDone(true), 900);
+    return () => { clearTimeout(timer); clearTimeout(doneTimer); };
   }, []);
 
   useEffect(() => {
@@ -369,15 +378,15 @@ export function SNDesignSystem() {
       </div>
 
       {/* ── Desktop layout (>= lg): 2-column ── */}
-      <div ref={leftPanelRef} className="hidden lg:flex flex-[1] flex-col pl-4 md:pl-6 xl:pl-20 pr-10 pt-4 pb-10 overflow-y-auto">
+      <div ref={leftPanelRef} className="hidden lg:flex flex-[1] flex-col pl-4 md:pl-6 xl:pl-20 pr-10 pt-4 pb-10 overflow-hidden">
         <h1
-          className="text-blue-900 text-xl font-semibold leading-snug mb-8 shrink-0"
+          className="text-blue-900 text-2xl font-semibold leading-snug mb-4 shrink-0"
           style={{ fontFamily: "'Open Sans', sans-serif" }}
         >
           Scaling the SN Design System
         </h1>
 
-        <div className="flex-1">
+        <div className="flex-1 overflow-y-auto min-h-0">
           {sections.map((section, i) => (
             <div key={i}>
               <button
@@ -428,24 +437,27 @@ export function SNDesignSystem() {
             ref={el => { imageRefs.current[i] = el; }}
             id={i === 0 ? 'sn-design-intro-image' : undefined}
             className="snap-start snap-always mb-6 aspect-[3/2] max-h-[78vh] w-auto ml-auto"
-            style={i === 0 ? { opacity: heroImageVisible ? 1 : 0, transition: 'opacity 150ms ease' } : undefined}
+            style={i === 0 ? { opacity: heroImageVisible ? 1 : 0, transition: 'opacity 150ms ease', willChange: 'opacity' } : undefined}
           >
-            {'visual' in section && section.visual ? React.cloneElement(section.visual as React.ReactElement, { isActive: i === activeIdx }) : section.image.endsWith('.mp4') ? (
-              <video
-                src={section.image}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover rounded-2xl shadow-lg"
-              />
-            ) : (
-              <img
-                src={section.image}
-                alt={section.label}
-                className="w-full h-full object-cover rounded-2xl shadow-lg cursor-zoom-in"
-                onClick={() => setLightboxSrc(section.image)}
-              />
+            {(i === 0 || transitionDone) && (
+              'visual' in section && section.visual ? React.cloneElement(section.visual as React.ReactElement, { isActive: i === activeIdx }) : section.image.endsWith('.mp4') ? (
+                <video
+                  src={section.image}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover rounded-2xl shadow-lg"
+                />
+              ) : (
+                <img
+                  src={section.image}
+                  alt={section.label}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  className="w-full h-full object-cover rounded-2xl shadow-lg cursor-zoom-in"
+                  onClick={() => setLightboxSrc(section.image)}
+                />
+              )
             )}
           </div>
         ))}
