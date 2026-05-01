@@ -212,7 +212,6 @@ export function SNDesignSystem() {
   const location = useLocation();
   const hasHeroTransition = !!(location.state as { heroFromRect?: unknown })?.heroFromRect;
   const [heroImageVisible, setHeroImageVisible] = useState(!hasHeroTransition);
-  const [transitionDone, setTransitionDone] = useState(!hasHeroTransition);
   const [activeIdx, setActiveIdx] = useState(0);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -227,17 +226,9 @@ export function SNDesignSystem() {
   const wheelIdleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    // Pre-decode the hero image so it's ready the moment the transition reveals it
-    const preload = new Image();
-    preload.src = coverImage;
-    preload.decode().catch(() => {});
-  }, []);
-
-  useEffect(() => {
     if (!hasHeroTransition) return;
     const timer = setTimeout(() => setHeroImageVisible(true), 600);
-    const doneTimer = setTimeout(() => setTransitionDone(true), 900);
-    return () => { clearTimeout(timer); clearTimeout(doneTimer); };
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -348,7 +339,7 @@ export function SNDesignSystem() {
               {section.label}
             </p>
             <div className="mb-5">{section.content}</div>
-            {'visual' in section && section.visual ? React.cloneElement(section.visual as React.ReactElement, { isActive: i === activeIdx }) : section.image.endsWith('.mp4') ? (
+            {section.visual ? React.cloneElement(section.visual as React.ReactElement, { isActive: i === activeIdx }) : section.image.endsWith('.mp4') ? (
               <video
                 src={section.image}
                 autoPlay
@@ -437,27 +428,24 @@ export function SNDesignSystem() {
             ref={el => { imageRefs.current[i] = el; }}
             id={i === 0 ? 'sn-design-intro-image' : undefined}
             className="snap-start snap-always mb-6 aspect-[3/2] max-h-[78vh] w-auto ml-auto"
-            style={i === 0 ? { opacity: heroImageVisible ? 1 : 0, transition: 'opacity 150ms ease', willChange: 'opacity' } : undefined}
+            style={i === 0 ? { opacity: heroImageVisible ? 1 : 0, transition: 'opacity 150ms ease' } : undefined}
           >
-            {(i === 0 || transitionDone) && (
-              'visual' in section && section.visual ? React.cloneElement(section.visual as React.ReactElement, { isActive: i === activeIdx }) : section.image.endsWith('.mp4') ? (
-                <video
-                  src={section.image}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-full object-cover rounded-2xl shadow-lg"
-                />
-              ) : (
-                <img
-                  src={section.image}
-                  alt={section.label}
-                  loading={i === 0 ? 'eager' : 'lazy'}
-                  className="w-full h-full object-cover rounded-2xl shadow-lg cursor-zoom-in"
-                  onClick={() => setLightboxSrc(section.image)}
-                />
-              )
+            {section.visual ? React.cloneElement(section.visual as React.ReactElement, { isActive: i === activeIdx }) : section.image.endsWith('.mp4') ? (
+              <video
+                src={section.image}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover rounded-2xl shadow-lg"
+              />
+            ) : (
+              <img
+                src={section.image}
+                alt={section.label}
+className="w-full h-full object-cover rounded-2xl shadow-lg cursor-zoom-in"
+                onClick={() => setLightboxSrc(section.image)}
+              />
             )}
           </div>
         ))}
