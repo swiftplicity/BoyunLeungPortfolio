@@ -439,7 +439,7 @@ function Layout() {
         </nav>
 
         {/* Page Content */}
-        <div className={`flex-1 flex flex-col ${location.pathname === '/' ? 'overflow-hidden' : 'overflow-y-auto'}`}>
+        <div className={`flex-1 flex flex-col ${location.pathname === '/' ? 'overflow-y-auto md:overflow-hidden' : 'overflow-y-auto'}`}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutMe />} />

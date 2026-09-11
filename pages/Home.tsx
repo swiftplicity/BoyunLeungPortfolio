@@ -105,9 +105,9 @@ export default function Home() {
     <div className="flex-1 flex flex-col w-full relative">
     <div className="flex-1 flex flex-col px-4 md:px-6 xl:px-20 py-6 pb-16 w-full max-w-[1728px] mx-auto">
       {/* Two-column row */}
-      <div className="flex items-start">
+      <div className="flex flex-col md:flex-row md:items-start">
         {/* Left column */}
-        <div className="flex-1 flex flex-col pr-8 min-w-0">
+        <div className="flex-1 flex flex-col pr-0 md:pr-8 min-w-0">
           {activeProject ? (
             // Featured project preview
             <div key={activeProject.id} className={`flex flex-col gap-4 ${isLeaving ? 'animate-slide-down' : ''}`}>
@@ -158,7 +158,7 @@ export default function Home() {
                     <div
                       key={index}
                       onClick={() => handleExploreClick(project, exploreImageRefs.current[index])}
-                      className={`group bg-white rounded-md overflow-hidden flex flex-col flex-none w-[calc(33.33%-11px)] snap-start ${!project.comingSoon ? 'cursor-pointer' : 'cursor-default'}`}
+                      className={`group bg-white rounded-md overflow-hidden flex flex-col flex-none w-[85%] sm:w-[calc(50%-8px)] md:w-[calc(33.33%-11px)] snap-start ${!project.comingSoon ? 'cursor-pointer' : 'cursor-default'}`}
                     >
                       <div ref={el => { exploreImageRefs.current[index] = el; }} className="relative aspect-video overflow-hidden flex-shrink-0">
                         <img
@@ -203,8 +203,8 @@ export default function Home() {
           )}
         </div>
 
-        {/* Right column — Featured Projects */}
-        <div className="flex flex-col items-end gap-4 w-56 flex-shrink-0">
+        {/* Right column — Featured Projects (hidden on mobile) */}
+        <div className="hidden md:flex flex-col items-end gap-4 w-56 flex-shrink-0">
           <p className="text-white font-light text-2xl">
             Featured Project
           </p>
@@ -238,8 +238,8 @@ export default function Home() {
 
     {/* Full-width footer */}
     {!activeProject && (
-      <div className="fixed bottom-0 left-0 right-0 z-20 pb-12">
-        <div className="px-4 md:px-6 xl:px-20 w-full max-w-[1728px] mx-auto flex items-center justify-between">
+      <div className="relative md:fixed md:bottom-0 md:left-0 md:right-0 z-20 mt-10 md:mt-0 pb-8 md:pb-12">
+        <div className="px-4 md:px-6 xl:px-20 w-full max-w-[1728px] mx-auto flex flex-col sm:flex-row items-center gap-4 sm:gap-0 sm:justify-between">
           <div className="flex items-center gap-4">
             <a href="https://www.linkedin.com/in/boyun-leung/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-white/70 hover:text-white transition-colors">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
