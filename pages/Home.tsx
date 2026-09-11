@@ -139,7 +139,7 @@ export default function Home() {
                 Hey! I'm Boyun
               </p>
               <h1
-                className="animate-slide-up-d1 text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-regular leading-tight"
+                className="animate-slide-up-d1 text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl short:text-4xl font-regular leading-tight"
                 style={{ fontFamily: "'IBM Plex Serif', serif" }}
               >
                 Let's cut to the chase
