@@ -6,7 +6,7 @@ const designSystemImage = '/assets/projects/design-system/harmony-design-system.
 const markAIImage = '/assets/projects/mark-ai-grader.png';
 const supportSystemImage = '/assets/projects/support-system/support-cover-mock.jpg';
 const snDesignImage = '/assets/projects/SN Design/sn-design-cover.webp';
-const visualDesignShowcaseImage = '/assets/projects/visual-design-showcase-placeholder.svg';
+const visualDesignShowcaseImage = '/assets/projects/visual design.jpg';
 
 type FeaturedProject = {
   id: string;

@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeftIcon, ChevronRightIcon, XIcon } from "lucide-react";
 
-const SLIDE_COUNT = 20;
-const slides = Array.from(
-  { length: SLIDE_COUNT },
-  (_, i) => `/assets/projects/visual-design/visual design showcase (${i + 1}).jpg`
-);
+const slideDir = "/assets/projects/visual-design";
+const slides = [
+  "visual design showcase (1).jpg",
+  "visual design showcase.jpg",
+  ...Array.from({ length: 19 }, (_, i) => `visual design showcase (${i + 2}).jpg`),
+].map(filename => `${slideDir}/${filename}`);
+const SLIDE_COUNT = slides.length;
 
 const ps = { fontFamily: "'Open Sans', sans-serif" };
 
