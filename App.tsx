@@ -111,9 +111,13 @@ interface Sparkle {
   delay: number;
 }
 
+const MIN_ACCEPTABLE_FPS = 30;
+const FPS_SAMPLE_FRAMES = 90; // ~1.5s at 60fps
+
 function Layout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [sparkles, setSparkles] = useState<Sparkle[]>([]);
+  const [sceneEnabled, setSceneEnabled] = useState(true);
   const location = useLocation();
   
   // Handle scrolling to hash on location change
@@ -134,13 +138,51 @@ function Layout() {
   useEffect(() => {
     if (location.pathname !== '/') return;
 
+    setSceneEnabled(true);
+
+    // Debug override for testing the low-performance fallback: ?staticbg=1
+    const forceStatic = new URLSearchParams(window.location.search).get('staticbg') === '1';
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (forceStatic || prefersReducedMotion) {
+      setSceneEnabled(false);
+      return;
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let scene: any = null;
+    let cancelled = false;
+    let watchdogFrame = 0;
+
+    // Measure real rendered framerate for a short window after the scene loads;
+    // if the device can't sustain it, tear the WebGL scene down and fall back
+    // to the static gradient layer underneath instead of leaving it stuttering.
+    const watchFramerate = () => {
+      const frameDurations: number[] = [];
+      let last = performance.now();
+
+      const tick = (now: number) => {
+        if (cancelled) return;
+        frameDurations.push(now - last);
+        last = now;
+        if (frameDurations.length < FPS_SAMPLE_FRAMES) {
+          watchdogFrame = requestAnimationFrame(tick);
+          return;
+        }
+        const avgFrameMs = frameDurations.reduce((a, b) => a + b, 0) / frameDurations.length;
+        const avgFps = 1000 / avgFrameMs;
+        if (avgFps < MIN_ACCEPTABLE_FPS) {
+          scene?.destroy();
+          scene = null;
+          setSceneEnabled(false);
+        }
+      };
+      watchdogFrame = requestAnimationFrame(tick);
+    };
 
     const initScene = async () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const US = (window as any).UnicornStudio;
-      if (!US?.addScene) return;
+      if (!US?.addScene || cancelled) return;
       scene = await US.addScene({
         elementId: 'unicorn-bg',
         projectId: '94dMBvGEIl2kfoUsVxfC',
@@ -149,6 +191,11 @@ function Layout() {
         dpi: 1.5,
         lazyLoad: false,
       });
+      if (cancelled) {
+        scene?.destroy();
+        return;
+      }
+      watchFramerate();
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -162,6 +209,8 @@ function Layout() {
     }
 
     return () => {
+      cancelled = true;
+      cancelAnimationFrame(watchdogFrame);
       scene?.destroy();
     };
   }, [location.pathname]);
@@ -306,9 +355,14 @@ function Layout() {
         </svg>
       </div>
 
-      {/* Unicorn Scene Background - Home only */}
-      {location.pathname === '/' && (
+      {/* Unicorn Scene Background - Home only, falls back to the static gradients above on low-end devices */}
+      {location.pathname === '/' && sceneEnabled && (
         <div id="unicorn-bg" className="absolute inset-0 pointer-events-none" style={{ height: '100vh', zIndex: 5 }} />
+      )}
+
+      {/* Contrast scrim - keeps white hero text readable over the background, animated or static */}
+      {location.pathname === '/' && (
+        <div className="absolute inset-0 bg-black/25 pointer-events-none" style={{ zIndex: 6 }} />
       )}
 
       {/* Grain overlay - all pages except home */}
@@ -351,6 +405,13 @@ function Layout() {
                     >
                       IBM Skills Network Support
                     </Link>
+                    <Link
+                      to="/projects/sn-design-system"
+                      className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-base"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      SN Design System
+                    </Link>
                     <a
                       href="https://mark-ai-grader.com/"
                       target="_blank"
@@ -360,13 +421,6 @@ function Layout() {
                     >
                       Mark AI Grader ↗
                     </a>
-                    <Link
-                      to="/projects/sn-design-system"
-                      className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-base"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      SN Design System
-                    </Link>
                     <Link
                       to="/projects/design-system"
                       className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-base"

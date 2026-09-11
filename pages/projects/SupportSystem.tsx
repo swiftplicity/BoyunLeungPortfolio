@@ -6,6 +6,7 @@ import { ImpactMetrics } from "../../components/ImpactMetrics";
 import { SupportAgentFlow } from "../../components/SupportAgentFlow";
 import { KeyFindings } from "../../components/KeyFindings";
 import { ProactiveAISupport } from "../../components/ProactiveAISupport";
+import { ScaleToFit } from "../../components/ScaleToFit";
 
 const supportSystemImage = '/assets/projects/support-system/support-cover-mock.webp';
 const overviewVideo = '/assets/projects/support demo.mp4';
@@ -367,7 +368,11 @@ export function SupportSystem() {
               {section.label}
             </p>
             <div className="mb-5">{section.content}</div>
-            {section.visual ? React.cloneElement(section.visual, { isActive: i === activeIdx }) : (
+            {section.visual ? (
+              <ScaleToFit designWidth={640} designHeight={427}>
+                {React.cloneElement(section.visual, { isActive: true })}
+              </ScaleToFit>
+            ) : (
               section.image.endsWith('.mp4') ? (
                 <video
                   src={section.image}
