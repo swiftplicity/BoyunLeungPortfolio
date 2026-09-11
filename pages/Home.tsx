@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
@@ -8,15 +8,6 @@ const supportSystemImage = '/assets/projects/support-system/support-cover-mock.j
 const snDesignImage = '/assets/projects/SN Design/sn-design-cover.webp';
 const visualDesignShowcaseImage = '/assets/projects/visual design.jpg';
 
-type FeaturedProject = {
-  id: string;
-  label: string;
-  route: string;
-  headline: string;
-  image: string;
-  comingSoon?: boolean;
-};
-
 type ExploreProject = {
   title: string;
   description: string;
@@ -25,16 +16,6 @@ type ExploreProject = {
   isExternal?: boolean;
   comingSoon?: boolean;
 };
-
-const featuredProjects: FeaturedProject[] = [
-  {
-    id: 'sn-support',
-    label: 'SN Support',
-    route: '/projects/support-system',
-    headline: 'I managed and designed the end-to-end implementation of a support system web application',
-    image: supportSystemImage,
-  },
-];
 
 const exploreProjects: ExploreProject[] = [
   {
@@ -71,30 +52,10 @@ const exploreProjects: ExploreProject[] = [
 ];
 
 export default function Home() {
-  const [hoveredFeatured, setHoveredFeatured] = useState<string | null>(null);
-  const [leavingProject, setLeavingProject] = useState<FeaturedProject | null>(null);
-  const leaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const navigate = useNavigate();
 
   const carouselRef = useRef<HTMLDivElement>(null);
-  const heroImageContainerRef = useRef<HTMLDivElement>(null);
   const exploreImageRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const hoveredProject = featuredProjects.find(p => p.id === hoveredFeatured) ?? null;
-  const activeProject = hoveredProject ?? leavingProject;
-  const isLeaving = !hoveredProject && !!leavingProject;
-
-  const handleProjectEnter = (id: string) => {
-    if (leaveTimer.current) clearTimeout(leaveTimer.current);
-    setLeavingProject(null);
-    setHoveredFeatured(id);
-  };
-
-  const handleProjectLeave = () => {
-    const current = featuredProjects.find(p => p.id === hoveredFeatured) ?? null;
-    setHoveredFeatured(null);
-    setLeavingProject(current);
-    leaveTimer.current = setTimeout(() => setLeavingProject(null), 500);
-  };
 
   const handleExploreClick = (project: ExploreProject, imageEl: HTMLDivElement | null) => {
     if (project.comingSoon) return;
@@ -110,141 +71,84 @@ export default function Home() {
 
   return (
     <div className="flex-1 flex flex-col w-full relative">
-    <div className="flex-1 flex flex-col px-4 md:px-6 xl:px-20 py-6 pb-16 w-full max-w-[1728px] mx-auto">
-      {/* Two-column row */}
-      <div className="flex flex-col md:flex-row md:items-start">
-        {/* Left column */}
-        <div className="flex-1 flex flex-col pr-0 md:pr-8 min-w-0">
-          {activeProject ? (
-            // Featured project preview
-            <div key={activeProject.id} className={`flex flex-col gap-4 ${isLeaving ? 'animate-slide-down' : ''}`}>
-              <p
-                className={`${!isLeaving ? 'animate-slide-up' : ''} text-white text-3xl md:text-4xl leading-snug flex-shrink-0 font-light`}
-                style={{ fontFamily: "'IBM Plex Serif', serif" }}
-              >
-                {activeProject.headline}
-              </p>
-              <div ref={heroImageContainerRef} className={`${!isLeaving ? 'animate-slide-up-delayed' : ''} rounded-md overflow-hidden`} style={{ height: 'calc(100vh - 280px)' }}>
-                <img
-                  src={activeProject.image}
-                  alt={activeProject.label}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-          ) : (
-            // Default intro content + explore
-            <div className="flex flex-col gap-6 md:gap-4">
-              <p className="animate-slide-up text-white text-2xl font-light">
-                Hey! I'm Boyun
-              </p>
-              <h1
-                className="animate-slide-up-d1 text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl short:text-4xl font-regular leading-tight"
-                style={{ fontFamily: "'IBM Plex Serif', serif" }}
-              >
-                Let's cut to the chase
-              </h1>
-              <p className="animate-slide-up-d1 text-white text-3xl"
-               style={{ fontFamily: "'IBM Plex Serif', serif" }}>
-                I design delightful experiences
-              </p>
-              <p className="animate-slide-up-d1 text-white/80 text-xl font-light">
-                Cofounder of {" "}
-                <a href="https://www.foryourdelight.ca/" target="_blank" rel="noopener noreferrer" className="hover:text-white/80 transition-colors underline underline-offset-2">foryourdelight</a>
-                {" "}and Prev. Designer @{" "}                
-                <a href="https://skills.network/" target="_blank" rel="noopener noreferrer" className="hover:text-white/80 transition-colors underline underline-offset-2">IBM Skills Network</a>
-              </p>
+    <div className="flex-1 flex flex-col px-4 md:px-6 xl:px-20 py-6 pb-16 short:py-3 short:pb-8 w-full max-w-[1728px] mx-auto">
+      {/* Intro content + explore */}
+      <div className="flex flex-col gap-6 md:gap-4 short:gap-2">
+        <p className="animate-slide-up text-white text-2xl font-light">
+          Hey! I'm Boyun
+        </p>
+        <h1
+          className="animate-slide-up-d1 text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl short:text-5xl font-regular leading-tight"
+          style={{ fontFamily: "'IBM Plex Serif', serif" }}
+        >
+          Let's cut to the chase
+        </h1>
+        <p className="animate-slide-up-d1 text-white text-3xl"
+         style={{ fontFamily: "'IBM Plex Serif', serif" }}>
+          I design delightful experiences
+        </p>
+        <p className="animate-slide-up-d1 text-white/80 text-xl font-light">
+          Cofounder of {" "}
+          <a href="https://www.foryourdelight.ca/" target="_blank" rel="noopener noreferrer" className="hover:text-white/80 transition-colors underline underline-offset-2">foryourdelight</a>
+          {" "}and Prev. Designer @{" "}
+          <a href="https://skills.network/" target="_blank" rel="noopener noreferrer" className="hover:text-white/80 transition-colors underline underline-offset-2">IBM Skills Network</a>
+        </p>
 
-              <div className="animate-slide-up-d2 mt-10 relative">
-                <div
-                  ref={carouselRef}
-                  className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide"
-                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-                >
-                  {exploreProjects.map((project, index) => (
-                    <div
-                      key={index}
-                      onClick={() => handleExploreClick(project, exploreImageRefs.current[index])}
-                      className={`group bg-white rounded-md overflow-hidden flex flex-col flex-none w-[85%] sm:w-[calc(50%-8px)] md:w-[calc(33.33%-11px)] snap-start ${!project.comingSoon ? 'cursor-pointer' : 'cursor-default'}`}
-                    >
-                      <div ref={el => { exploreImageRefs.current[index] = el; }} className="relative aspect-video overflow-hidden flex-shrink-0">
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                        {!project.comingSoon && (
-                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-black/40">
-                            <span className="text-white text-xs tracking-widest uppercase font-normal">Learn more</span>
-                          </div>
-                        )}
-                        {project.comingSoon && (
-                          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                            <span className="text-white text-xs">Coming Soon</span>
-                          </div>
-                        )}
-                      </div>
-                      <div className="p-4 flex flex-col gap-0.5">
-                        <span className="text-sm text-gray-500">{project.title}</span>
-                        <p className="text-sm text-gray-800 font-light leading-snug">{project.description}</p>
-                      </div>
+        <div className="animate-slide-up-d2 mt-10 short:mt-4 relative">
+          <div
+            ref={carouselRef}
+            className="flex gap-4 short:gap-2 overflow-x-auto snap-x snap-mandatory scrollbar-hide"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {exploreProjects.map((project, index) => (
+              <div
+                key={index}
+                onClick={() => handleExploreClick(project, exploreImageRefs.current[index])}
+                className={`group bg-white rounded-md overflow-hidden flex flex-col flex-none w-[clamp(55%,calc(85%_-_30%*(800px_-_100vh)/300px),85%)] sm:w-[calc(clamp(36%,calc(50%_-_14%*(800px_-_100vh)/300px),50%)_-_8px)] md:w-[calc(clamp(24%,calc(33.33%_-_9.33%*(800px_-_100vh)/300px),33.33%)_-_11px)] snap-start ${!project.comingSoon ? 'cursor-pointer' : 'cursor-default'}`}
+              >
+                <div ref={el => { exploreImageRefs.current[index] = el; }} className="relative aspect-video overflow-hidden flex-shrink-0">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  {!project.comingSoon && (
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-black/40">
+                      <span className="text-white text-xs tracking-widest uppercase font-normal">Learn more</span>
                     </div>
-                  ))}
+                  )}
+                  {project.comingSoon && (
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                      <span className="text-white text-xs">Coming Soon</span>
+                    </div>
+                  )}
                 </div>
-                <div className="flex gap-2 mt-3 justify-end">
-                  <button
-                    onClick={() => carouselRef.current?.scrollBy({ left: -300, behavior: 'smooth' })}
-                    className="p-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors"
-                  >
-                    <ChevronLeftIcon size={16} />
-                  </button>
-                  <button
-                    onClick={() => carouselRef.current?.scrollBy({ left: 300, behavior: 'smooth' })}
-                    className="p-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors"
-                  >
-                    <ChevronRightIcon size={16} />
-                  </button>
+                <div className="p-[clamp(0.5rem,calc(1rem_-_0.5rem*(800px_-_100vh)/300px),1rem)] flex flex-col gap-0.5">
+                  <span className="text-sm text-gray-500">{project.title}</span>
+                  <p className="text-sm text-gray-800 font-light leading-snug">{project.description}</p>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-
-        {/* Right column — Featured Projects (hidden on mobile) */}
-        <div className="hidden md:flex flex-col items-end gap-4 w-56 flex-shrink-0">
-          <p className="text-white font-light text-2xl">
-            Featured Project
-          </p>
-          <div className="flex flex-col gap-3 items-end">
-            {featuredProjects.map((project) => (
-              <button
-                key={project.id}
-                onMouseEnter={() => handleProjectEnter(project.id)}
-                onMouseLeave={handleProjectLeave}
-                onClick={() => {
-                  if (project.comingSoon) return;
-                  const el = heroImageContainerRef.current;
-                  const rect = el ? el.getBoundingClientRect() : null;
-                  navigate(project.route, {
-                    state: rect ? { heroFromRect: { top: rect.top, left: rect.left, width: rect.width, height: rect.height } } : undefined,
-                  });
-                }}
-                className={`px-5 py-2 rounded-full text-sm border transition-all duration-200 ${
-                  hoveredFeatured === project.id
-                    ? 'bg-white text-[#1e3a5f] border-white'
-                    : 'bg-transparent text-white border-white/50 hover:border-white'
-                } ${project.comingSoon ? 'opacity-50 cursor-default' : 'cursor-pointer'}`}
-              >
-                {project.label}
-              </button>
             ))}
           </div>
+          <div className="flex gap-2 mt-3 justify-end">
+            <button
+              onClick={() => carouselRef.current?.scrollBy({ left: -300, behavior: 'smooth' })}
+              className="p-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors"
+            >
+              <ChevronLeftIcon size={16} />
+            </button>
+            <button
+              onClick={() => carouselRef.current?.scrollBy({ left: 300, behavior: 'smooth' })}
+              className="p-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors"
+            >
+              <ChevronRightIcon size={16} />
+            </button>
+          </div>
         </div>
-      </div>{/* end two-column row */}
+      </div>{/* end intro content + explore */}
     </div>
 
     {/* Full-width footer */}
-    {!activeProject && (
       <div className="relative md:fixed md:bottom-0 md:left-0 md:right-0 z-20 mt-10 md:mt-0 pb-8 md:pb-12">
         <div className="px-4 md:px-6 xl:px-20 w-full max-w-[1728px] mx-auto flex flex-col sm:flex-row items-center gap-4 sm:gap-0 sm:justify-between">
           <div className="flex items-center gap-4">
@@ -280,7 +184,6 @@ export default function Home() {
           </p>
         </div>
       </div>
-    )}
     </div>
   );
 }
