@@ -9,6 +9,7 @@ import { Yearbook } from "./pages/Yearbook";
 import { SupportSystem } from "./pages/projects/SupportSystem";
 import { DesignSystem } from "./pages/projects/DesignSystem";
 import { SNDesignSystem } from "./pages/projects/SNDesignSystem";
+import { VisualDesignShowcase } from "./pages/projects/VisualDesignShowcase";
 
 type HeroFromRect = { top: number; left: number; width: number; height: number };
 
@@ -412,6 +413,13 @@ function Layout() {
                     >
                       SN Design System
                     </Link>
+                    <Link
+                      to="/projects/visual-design-showcase"
+                      className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-base"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Visual Design Showcase
+                    </Link>
                     <a
                       href="https://mark-ai-grader.com/"
                       target="_blank"
@@ -501,6 +509,7 @@ function Layout() {
           <Route path="/projects/support-system" element={<SupportSystem />} />
           <Route path="/projects/design-system" element={<DesignSystem />} />
           <Route path="/projects/sn-design-system" element={<SNDesignSystem />} />
+          <Route path="/projects/visual-design-showcase" element={<VisualDesignShowcase />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         </div>
