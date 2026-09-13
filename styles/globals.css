@@ -290,3 +290,43 @@ html {
     transform: scale(1.2) rotate(180deg);
   }
 }
+
+/* Slim brand-blue scrollbar, shared by the case-study text list and image gallery. */
+.slim-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(25, 56, 209, 0.22) transparent;
+}
+
+.slim-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.slim-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.slim-scroll::-webkit-scrollbar-thumb {
+  background: rgba(25, 56, 209, 0.22);
+  border-radius: 9999px;
+}
+
+.slim-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(25, 56, 209, 0.4);
+}
+
+/* Case-study image gallery: the scrollbar sits just beside the images, and the
+   panel is pulled in from the page edge by the nav inset minus the gap and the
+   measured scrollbar width (--sbw, set by the page), so the image edges line up
+   with the nav's Resume link no matter how wide the OS draws the bar. */
+.gallery-scroll {
+  --gallery-gap: 0.75rem;
+  --gallery-inset: 1.5rem;
+  padding-right: var(--gallery-gap);
+  margin-right: max(0px, calc(var(--gallery-inset) - var(--gallery-gap) - var(--sbw, 0px)));
+}
+
+@media (min-width: 1280px) {
+  .gallery-scroll {
+    --gallery-inset: 5rem;
+  }
+}

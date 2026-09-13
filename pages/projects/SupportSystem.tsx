@@ -241,7 +241,9 @@ export function SupportSystem() {
   const [heroImageVisible, setHeroImageVisible] = useState(!hasHeroTransition);
   const [activeIdx, setActiveIdx] = useState(0);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  const [scrollbarWidth, setScrollbarWidth] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const textScrollRef = useRef<HTMLDivElement>(null);
   const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
   const outerRef = useRef<HTMLDivElement>(null);
   const leftPanelRef = useRef<HTMLDivElement>(null);
@@ -302,6 +304,32 @@ export function SupportSystem() {
       outer.removeEventListener('wheel', handleWheel);
       if (wheelIdleTimerRef.current) clearTimeout(wheelIdleTimerRef.current);
     };
+  }, []);
+
+  // The closing section is the longest, so as it expands keep the list pinned to
+  // its bottom - the whole body lands in view instead of hanging below the fold.
+  useEffect(() => {
+    if (activeIdx !== sections.length - 1) return;
+    const list = textScrollRef.current;
+    if (!list) return;
+    const start = performance.now();
+    let frame = requestAnimationFrame(function pin(now) {
+      list.scrollTop = list.scrollHeight;
+      if (now - start < 450) frame = requestAnimationFrame(pin);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [activeIdx]);
+
+  // The gallery reserves room for its own scrollbar, so measure it and let the
+  // panel pull itself back in by that much - keeps the image edges on the same
+  // line as the Resume link in the nav.
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const measure = () => setScrollbarWidth(container.offsetWidth - container.clientWidth);
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
   }, []);
 
   // Detect which image is in view → update active section
@@ -414,7 +442,7 @@ export function SupportSystem() {
         </h1>
 
         {/* Accordion rows */}
-        <div className="flex-1 overflow-y-auto min-h-0">
+        <div ref={textScrollRef} className="flex-1 overflow-y-auto min-h-0 slim-scroll pr-3">
           {sections.map((section, i) => (
             <div key={i}>
               <button
@@ -458,7 +486,8 @@ export function SupportSystem() {
       {/* Right Panel: scrollable snapping images */}
       <div
         ref={scrollRef}
-        className="hidden lg:block flex-[2] overflow-y-auto snap-y snap-mandatory pl-8 pr-4 md:pr-6 xl:pr-20 pt-8 pb-0"
+        className="hidden lg:block flex-[2] overflow-y-scroll snap-y snap-mandatory slim-scroll gallery-scroll pl-8 pt-8 pb-0"
+        style={{ "--sbw": `${scrollbarWidth}px` } as React.CSSProperties}
       >
         {sections.map((section, i) => (
           <div
