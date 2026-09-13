@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
@@ -54,6 +54,19 @@ const exploreProjects: ExploreProject[] = [
 export default function Home() {
   const navigate = useNavigate();
 
+  // Drives the hero card sizing: 0 at viewport heights >= 800px, ramping to 1 at
+  // 500px. Done in JS because the CSS equivalent needs length-by-length division
+  // inside calc(), which Firefox throws out (taking the whole declaration with it).
+  useLayoutEffect(() => {
+    const update = () => {
+      const shrink = Math.min(1, Math.max(0, (800 - window.innerHeight) / 300));
+      document.documentElement.style.setProperty("--hero-shrink", String(shrink));
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
   const carouselRef = useRef<HTMLDivElement>(null);
   const exploreImageRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -104,7 +117,7 @@ export default function Home() {
               <div
                 key={index}
                 onClick={() => handleExploreClick(project, exploreImageRefs.current[index])}
-                className={`group bg-white rounded-md overflow-hidden flex flex-col flex-none w-[clamp(55%,calc(85%_-_30%*(800px_-_100vh)/300px),85%)] sm:w-[calc(clamp(36%,calc(50%_-_14%*(800px_-_100vh)/300px),50%)_-_8px)] md:w-[calc(clamp(24%,calc(33.33%_-_9.33%*(800px_-_100vh)/300px),33.33%)_-_11px)] snap-start ${!project.comingSoon ? 'cursor-pointer' : 'cursor-default'}`}
+                className={`group bg-white rounded-md overflow-hidden flex flex-col flex-none w-[clamp(55%,calc(85%_-_30%*var(--hero-shrink)),85%)] sm:w-[calc(clamp(36%,calc(50%_-_14%*var(--hero-shrink)),50%)_-_8px)] md:w-[calc(clamp(24%,calc(33.33%_-_9.33%*var(--hero-shrink)),33.33%)_-_11px)] snap-start ${!project.comingSoon ? 'cursor-pointer' : 'cursor-default'}`}
               >
                 <div ref={el => { exploreImageRefs.current[index] = el; }} className="relative aspect-video overflow-hidden flex-shrink-0">
                   <img
@@ -123,7 +136,7 @@ export default function Home() {
                     </div>
                   )}
                 </div>
-                <div className="p-[clamp(0.5rem,calc(1rem_-_0.5rem*(800px_-_100vh)/300px),1rem)] flex flex-col gap-0.5">
+                <div className="p-[clamp(0.5rem,calc(1rem_-_0.5rem*var(--hero-shrink)),1rem)] flex flex-col gap-0.5">
                   <span className="text-sm text-gray-500">{project.title}</span>
                   <p className="text-sm text-gray-800 font-light leading-snug">{project.description}</p>
                 </div>

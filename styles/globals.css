@@ -65,6 +65,9 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* 0 at viewport heights >= 800px, ramping to 1 at 500px. Set by Home.tsx;
+     this default keeps the hero cards sized sanely before JS runs. */
+  --hero-shrink: 0.5;
   --font-size: 16px;
   --background: #ffffff;
   --foreground: oklch(0.145 0 0);
