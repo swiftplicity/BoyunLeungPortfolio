@@ -1,6 +1,6 @@
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 const designSystemImage = '/assets/projects/design-system/harmony-design-system.png';
 const markAIImage = '/assets/projects/mark-ai-grader.png';
@@ -8,11 +8,16 @@ const supportSystemImage = '/assets/projects/support-system/support-cover-mock.j
 const snDesignImage = '/assets/projects/SN Design/sn-design-cover.webp';
 const visualDesignShowcaseImage = '/assets/projects/visual design.jpg';
 
+const filters = ['All', 'UX/UI', 'Design Systems', 'Visual Design'] as const;
+type Filter = (typeof filters)[number];
+type ProjectCategory = Exclude<Filter, 'All'>;
+
 type ExploreProject = {
   title: string;
   description: string;
   image: string;
   route: string;
+  categories: ProjectCategory[];
   isExternal?: boolean;
   comingSoon?: boolean;
 };
@@ -23,24 +28,28 @@ const exploreProjects: ExploreProject[] = [
     description: "I managed and designed the end-to-end implementation of a support system web application",
     image: supportSystemImage,
     route: "/projects/support-system",
+    categories: ['UX/UI'],
   },
   {
     title: "SN Design System",
     description: "I scaled the IBM Skills Network design system to improve consistency and developer adoption",
     image: snDesignImage,
     route: "/projects/sn-design-system",
+    categories: ['Design Systems', 'UX/UI'],
   },
   {
     title: "Visual Design Showcase",
     description: "Ink, paper, and pixels: the parts of design that doesn't ship in an app",
     image: visualDesignShowcaseImage,
     route: "/projects/visual-design-showcase",
+    categories: ['Visual Design'],
   },
   {
     title: "Mark AI Grader",
     description: "I designed features to enhance the author's and learner's experience for an AI grader",
     image: markAIImage,
     route: "https://mark-ai-grader.com/",
+    categories: ['UX/UI'],
     isExternal: true,
   },
   {
@@ -48,6 +57,7 @@ const exploreProjects: ExploreProject[] = [
     description: "I updated and transitioned an outdated design system to be consistent, scalable, and modular",
     image: designSystemImage,
     route: "/projects/design-system",
+    categories: ['Design Systems'],
   },
 ];
 
@@ -68,7 +78,71 @@ export default function Home() {
   }, []);
 
   const carouselRef = useRef<HTMLDivElement>(null);
-  const exploreImageRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const exploreImageRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  const [activeFilter, setActiveFilter] = useState<Filter>('All');
+  const visibleProjects = activeFilter === 'All'
+    ? exploreProjects
+    : exploreProjects.filter(p => p.categories.includes(activeFilter));
+
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  useLayoutEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+
+    let frame = 0;
+    const update = () => {
+      // 1px of slack: percentage-width cards leave sub-pixel remainders at the ends.
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      setCanScrollLeft(el.scrollLeft > 1);
+      setCanScrollRight(el.scrollLeft < maxScroll - 1);
+    };
+    // On resize the cards are re-sized by --hero-shrink from a separate listener, so
+    // measure again next frame in case that one ran after this one.
+    const onResize = () => {
+      update();
+      if (!frame) frame = requestAnimationFrame(() => { frame = 0; update(); });
+    };
+
+    update();
+    el.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', onResize);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      el.removeEventListener('scroll', update);
+      window.removeEventListener('resize', onResize);
+    };
+    // Re-measure when filtering changes how many cards are in the rail.
+  }, [activeFilter]);
+
+  // Below sm the four pills wrap onto a second row, so collapse them into one menu.
+  const [filterMenuOpen, setFilterMenuOpen] = useState(false);
+  const filterMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!filterMenuOpen) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (!filterMenuRef.current?.contains(e.target as Node)) setFilterMenuOpen(false);
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setFilterMenuOpen(false);
+    };
+    document.addEventListener('pointerdown', onPointerDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown);
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [filterMenuOpen]);
+
+  const handleFilterClick = (filter: Filter) => {
+    setActiveFilter(filter);
+    setFilterMenuOpen(false);
+    // Otherwise a filter picked while scrolled right lands you past the last card.
+    carouselRef.current?.scrollTo({ left: 0, behavior: 'smooth' });
+  };
 
   const handleExploreClick = (project: ExploreProject, imageEl: HTMLDivElement | null) => {
     if (project.comingSoon) return;
@@ -108,18 +182,86 @@ export default function Home() {
         </p>
 
         <div className="animate-slide-up-d2 mt-10 short:mt-4 relative">
+          <div className="flex items-center gap-4 mb-4 short:mb-2">
+            <div ref={filterMenuRef} className="relative sm:hidden">
+              <button
+                onClick={() => setFilterMenuOpen(open => !open)}
+                aria-haspopup="true"
+                aria-expanded={filterMenuOpen}
+                className="flex items-center gap-1.5 rounded-full bg-white text-gray-900 px-4 py-1.5 short:py-1 text-sm short:text-xs font-light"
+              >
+                {activeFilter}
+                <ChevronDownIcon
+                  size={14}
+                  className={`transition-transform ${filterMenuOpen ? 'rotate-180' : ''}`}
+                />
+              </button>
+              {filterMenuOpen && (
+                <div className="absolute left-0 top-full z-30 mt-2 min-w-[10rem] overflow-hidden rounded-md bg-white shadow-lg">
+                  {filters.map(filter => (
+                    <button
+                      key={filter}
+                      onClick={() => handleFilterClick(filter)}
+                      aria-current={activeFilter === filter}
+                      className={`block w-full px-4 py-2 text-left text-sm font-light transition-colors ${
+                        activeFilter === filter
+                          ? 'bg-gray-100 text-gray-900'
+                          : 'text-gray-600 hover:bg-gray-50'
+                      }`}
+                    >
+                      {filter}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="hidden sm:flex flex-wrap gap-2">
+              {filters.map(filter => (
+                <button
+                  key={filter}
+                  onClick={() => handleFilterClick(filter)}
+                  aria-pressed={activeFilter === filter}
+                  className={`rounded-full px-4 py-1.5 short:py-1 text-sm short:text-xs font-light transition-colors ${
+                    activeFilter === filter
+                      ? 'bg-white text-gray-900'
+                      : 'bg-white/15 text-white hover:bg-white/25'
+                  }`}
+                >
+                  {filter}
+                </button>
+              ))}
+            </div>
+            <div className="flex gap-2 ml-auto shrink-0">
+              <button
+                onClick={() => carouselRef.current?.scrollBy({ left: -300, behavior: 'smooth' })}
+                aria-label="Scroll projects left"
+                disabled={!canScrollLeft}
+                className="p-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors disabled:opacity-30 disabled:cursor-default disabled:hover:bg-white/20"
+              >
+                <ChevronLeftIcon size={16} />
+              </button>
+              <button
+                onClick={() => carouselRef.current?.scrollBy({ left: 300, behavior: 'smooth' })}
+                aria-label="Scroll projects right"
+                disabled={!canScrollRight}
+                className="p-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors disabled:opacity-30 disabled:cursor-default disabled:hover:bg-white/20"
+              >
+                <ChevronRightIcon size={16} />
+              </button>
+            </div>
+          </div>
           <div
             ref={carouselRef}
             className="flex gap-4 short:gap-2 overflow-x-auto snap-x snap-mandatory scrollbar-hide"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
-            {exploreProjects.map((project, index) => (
+            {visibleProjects.map(project => (
               <div
-                key={index}
-                onClick={() => handleExploreClick(project, exploreImageRefs.current[index])}
+                key={project.route}
+                onClick={() => handleExploreClick(project, exploreImageRefs.current[project.route])}
                 className={`group bg-white rounded-md overflow-hidden flex flex-col flex-none w-[clamp(55%,calc(85%_-_30%*var(--hero-shrink)),85%)] sm:w-[calc(clamp(36%,calc(50%_-_14%*var(--hero-shrink)),50%)_-_8px)] md:w-[calc(clamp(24%,calc(33.33%_-_9.33%*var(--hero-shrink)),33.33%)_-_11px)] snap-start ${!project.comingSoon ? 'cursor-pointer' : 'cursor-default'}`}
               >
-                <div ref={el => { exploreImageRefs.current[index] = el; }} className="relative aspect-video overflow-hidden flex-shrink-0">
+                <div ref={el => { exploreImageRefs.current[project.route] = el; }} className="relative aspect-video overflow-hidden flex-shrink-0">
                   <img
                     src={project.image}
                     alt={project.title}
@@ -142,20 +284,6 @@ export default function Home() {
                 </div>
               </div>
             ))}
-          </div>
-          <div className="flex gap-2 mt-3 justify-end">
-            <button
-              onClick={() => carouselRef.current?.scrollBy({ left: -300, behavior: 'smooth' })}
-              className="p-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors"
-            >
-              <ChevronLeftIcon size={16} />
-            </button>
-            <button
-              onClick={() => carouselRef.current?.scrollBy({ left: 300, behavior: 'smooth' })}
-              className="p-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors"
-            >
-              <ChevronRightIcon size={16} />
-            </button>
           </div>
         </div>
       </div>{/* end intro content + explore */}
