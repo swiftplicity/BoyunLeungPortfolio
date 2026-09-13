@@ -5,6 +5,7 @@ import { Mail } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "./components/ui/sheet";
 import Home from "./pages/Home";
 import { AboutMe } from "./pages/AboutMe";
+import { Resume } from "./pages/Resume";
 import { Yearbook } from "./pages/Yearbook";
 import { SupportSystem } from "./pages/projects/SupportSystem";
 import { DesignSystem } from "./pages/projects/DesignSystem";
@@ -392,30 +393,30 @@ function Layout() {
                 <div className="flex flex-col gap-8 mt-12 pl-10 h-full pb-12">
                   <Link
                     to="/"
-                    className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-lg"
+                    className="font-normal text-[#4B5563] hover:text-[#1938d1] transition-colors text-lg"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Home
                   </Link>
                   <div className="flex flex-col gap-5">
-                    <span className="text-xs text-gray-400 uppercase tracking-wider">Case Studies</span>
+                    <span className="text-xs text-gray-500 uppercase tracking-wider">Case Studies</span>
                     <Link
                       to="/projects/support-system"
-                      className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-base"
+                      className="font-normal text-[#4B5563] hover:text-[#1938d1] transition-colors text-base"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       IBM Skills Network Support
                     </Link>
                     <Link
                       to="/projects/sn-design-system"
-                      className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-base"
+                      className="font-normal text-[#4B5563] hover:text-[#1938d1] transition-colors text-base"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       SN Design System
                     </Link>
                     <Link
                       to="/projects/visual-design-showcase"
-                      className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-base"
+                      className="font-normal text-[#4B5563] hover:text-[#1938d1] transition-colors text-base"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       Visual Design Showcase
@@ -424,57 +425,55 @@ function Layout() {
                       href="https://mark-ai-grader.com/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-base"
+                      className="font-normal text-[#4B5563] hover:text-[#1938d1] transition-colors text-base"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       Mark AI Grader ↗
                     </a>
                     <Link
                       to="/projects/design-system"
-                      className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-base"
+                      className="font-normal text-[#4B5563] hover:text-[#1938d1] transition-colors text-base"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       Harmony Design System
                     </Link>
                   </div>
-                  <a
-                    href="https://drive.google.com/file/d/1R-n2lwAQBe7h4YEzRpXrCl4HqPYnYE-4/view?usp=sharing"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-lg"
+                  <Link
+                    to="/resume"
+                    className="font-normal text-[#4B5563] hover:text-[#1938d1] transition-colors text-lg"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     Resume
-                  </a>
+                  </Link>
                   <Link
                     to="/about"
-                    className="font-light text-[#9CA3AF] hover:text-[#1938d1] transition-colors text-lg"
+                    className="font-normal text-[#4B5563] hover:text-[#1938d1] transition-colors text-lg"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     About Me
                   </Link>
                   <div className="flex items-center gap-4 mt-auto">
-                    <a href="https://www.linkedin.com/in/boyun-leung/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-[#9CA3AF] hover:text-[#1938d1] transition-colors">
+                    <a href="https://www.linkedin.com/in/boyun-leung/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-[#4B5563] hover:text-[#1938d1] transition-colors">
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
                         <rect width="4" height="12" x="2" y="9"/>
                         <circle cx="4" cy="4" r="2"/>
                       </svg>
                     </a>
-                    <a href="https://www.instagram.com/boyunleung/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-[#9CA3AF] hover:text-[#1938d1] transition-colors">
+                    <a href="https://www.instagram.com/boyunleung/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-[#4B5563] hover:text-[#1938d1] transition-colors">
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
                         <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
                       </svg>
                     </a>
-                    <a href="https://github.com/swiftplicity" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-[#9CA3AF] hover:text-[#1938d1] transition-colors">
+                    <a href="https://github.com/swiftplicity" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-[#4B5563] hover:text-[#1938d1] transition-colors">
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
                         <path d="M9 18c-4.51 2-5-2-7-2"/>
                       </svg>
                     </a>
-                    <a href="mailto:boyun.leung@gmail.com" aria-label="Email" className="text-[#9CA3AF] hover:text-[#1938d1] transition-colors">
+                    <a href="mailto:boyun.leung@gmail.com" aria-label="Email" className="text-[#4B5563] hover:text-[#1938d1] transition-colors">
                       <Mail size={18} />
                     </a>
                   </div>
@@ -488,14 +487,12 @@ function Layout() {
             </Link>
 
             {/* Right: Resume */}
-            <a
-              href="https://drive.google.com/file/d/1R-n2lwAQBe7h4YEzRpXrCl4HqPYnYE-4/view?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/resume"
               className={`font-regular transition-colors text-sm ${location.pathname === '/' ? 'text-white/70 hover:text-white' : 'text-[#1938D1]/70 hover:text-[#1938D1]'}`}
             >
               Resume
-            </a>
+            </Link>
           </div>
           </div>
         </nav>
@@ -505,6 +502,7 @@ function Layout() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutMe />} />
+          <Route path="/resume" element={<Resume />} />
           <Route path="/yearbook" element={<Yearbook />} />
           <Route path="/projects/support-system" element={<SupportSystem />} />
           <Route path="/projects/design-system" element={<DesignSystem />} />

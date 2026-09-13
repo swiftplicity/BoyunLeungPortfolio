@@ -25,7 +25,7 @@ export function AboutMe() {
             A little bit about me...
           </h2>
           
-          <div className="space-y-6 font-['Open_Sans',_sans-serif] font-light text-[#222222] text-[14px] sm:text-[16px] leading-relaxed" style={{ fontVariationSettings: "'wdth' 100" }}>
+          <div className="space-y-6 font-['Open_Sans',_sans-serif] font-normal text-[#222222] text-[14px] sm:text-[16px] leading-relaxed" style={{ fontVariationSettings: "'wdth' 100" }}>
             <p>
               I am a Product Designer, most recently at IBM, where I led design on a support platform spanning 15+ products. I hold a Master of Information in User Experience Design from the University of Toronto and a Bachelor of Global Business and Digital Arts from the University of Waterloo, and my multidisciplinary background spans project management, marketing, and visual design. When it comes to design, I care about the details down to the pixel while staying focused on the bigger picture.
             </p>
