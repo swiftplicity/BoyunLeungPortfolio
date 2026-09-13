@@ -421,6 +421,15 @@ export function SupportSystem() {
             )}
           </div>
         ))}
+        <div className="flex justify-center pt-4 pb-10">
+          <Link
+            to="/"
+            className="px-6 py-2 rounded-full border border-gray-300 text-gray-500 text-sm font-light hover:border-blue-900 hover:text-blue-900 transition-colors"
+            style={{ fontFamily: "'Open Sans', sans-serif" }}
+          >
+            Home
+          </Link>
+        </div>
         <div className="pt-6">
           <div className="flex items-center gap-4">
             <a href="https://www.linkedin.com/in/boyun-leung/" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:opacity-70 transition-opacity"><LinkedinIcon size={18} /></a>
