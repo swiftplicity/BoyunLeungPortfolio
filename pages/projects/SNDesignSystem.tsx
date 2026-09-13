@@ -20,6 +20,50 @@ function Bullet({ children }: { children: React.ReactNode }) {
   );
 }
 
+/**
+ * Defers the download entirely until the section is near the viewport, then keeps
+ * the src attached so returning to it resumes instantly. Both the mobile and the
+ * desktop layout are always mounted, so an autoPlay video here would download and
+ * decode twice on mount even though one copy is display:none.
+ */
+function LazyVideo({ src, className }: { src: string; className?: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [visible, setVisible] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { rootMargin: '200px', threshold: 0.1 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => { if (visible) setLoaded(true); }, [visible]);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !loaded) return;
+    if (visible) el.play().catch(() => {});
+    else el.pause();
+  }, [visible, loaded]);
+
+  return (
+    <video
+      ref={ref}
+      src={loaded ? src : undefined}
+      loop
+      muted
+      playsInline
+      preload="none"
+      className={className}
+    />
+  );
+}
+
 const sections = [
   {
     label: 'Introduction',
@@ -340,18 +384,16 @@ export function SNDesignSystem() {
             </p>
             <div className="mb-5">{section.content}</div>
             {section.visual ? React.cloneElement(section.visual as React.ReactElement, { isActive: i === activeIdx }) : section.image.endsWith('.mp4') ? (
-              <video
+              <LazyVideo
                 src={section.image}
-                autoPlay
-                loop
-                muted
-                playsInline
                 className="w-full aspect-[3/2] object-cover rounded-2xl shadow-lg"
               />
             ) : (
               <img
                 src={section.image}
                 alt={section.label}
+                loading="lazy"
+                decoding="async"
                 className="w-full aspect-[3/2] object-cover rounded-2xl shadow-lg cursor-zoom-in"
                 onClick={() => setLightboxSrc(section.image)}
               />
@@ -431,19 +473,18 @@ export function SNDesignSystem() {
             style={i === 0 ? { opacity: heroImageVisible ? 1 : 0, transition: 'opacity 150ms ease' } : undefined}
           >
             {section.visual ? React.cloneElement(section.visual as React.ReactElement, { isActive: i === activeIdx }) : section.image.endsWith('.mp4') ? (
-              <video
+              <LazyVideo
                 src={section.image}
-                autoPlay
-                loop
-                muted
-                playsInline
                 className="w-full h-full object-cover rounded-2xl shadow-lg"
               />
             ) : (
               <img
                 src={section.image}
                 alt={section.label}
-className="w-full h-full object-cover rounded-2xl shadow-lg cursor-zoom-in"
+                loading={i === 0 ? 'eager' : 'lazy'}
+                decoding={i === 0 ? 'sync' : 'async'}
+                fetchPriority={i === 0 ? 'high' : 'auto'}
+                className="w-full h-full object-cover rounded-2xl shadow-lg cursor-zoom-in"
                 onClick={() => setLightboxSrc(section.image)}
               />
             )}
