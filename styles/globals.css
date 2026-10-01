@@ -62,6 +62,19 @@
   animation: slide-up 0.55s ease-out 0.25s forwards;
 }
 
+@keyframes caret-blink {
+  0%, 45% {
+    opacity: 1;
+  }
+  55%, 100% {
+    opacity: 0;
+  }
+}
+
+.animate-caret-blink {
+  animation: caret-blink 1.05s steps(1, end) infinite;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 :root {

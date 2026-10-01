@@ -1,6 +1,15 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { TypingHeadline } from "../components/TypingHeadline";
+
+const headlinePhrases = [
+  "I design delightful experiences",
+  "I design things that work",
+  "I build products that scale without losing the plot",
+  "I sweat the details so users don't have to",
+  "I design systems that don't fall apart at scale",
+];
 
 const designSystemImage = '/assets/projects/design-system/harmony-design-system.png';
 const markAIImage = '/assets/projects/mark-ai-grader.png';
@@ -158,30 +167,38 @@ export default function Home() {
 
   return (
     <div className="flex-1 flex flex-col w-full relative">
-    <div className="flex-1 flex flex-col px-4 md:px-6 xl:px-20 py-6 pb-16 short:py-3 short:pb-8 w-full max-w-[1728px] mx-auto">
+    {/* pb only separates the cards from the footer below md, where the footer is in
+        flow and the page scrolls. On md+ the footer is fixed over a non-scrolling
+        page, so the spacing there comes from the footer's own padding instead. */}
+    <div className="flex-1 flex flex-col px-4 md:px-6 xl:px-20 py-6 pb-10 short:py-3 w-full max-w-[1728px] mx-auto">
       {/* Intro content + explore */}
       <div className="flex flex-col gap-6 md:gap-4 short:gap-2">
-        <p className="animate-slide-up text-white text-2xl font-light">
-          Hey! I'm Boyun
+        {/* The hero steps down a size below md, where the headline can no longer fit
+            on one line and the whole block has to earn its vertical space. */}
+        <p className="animate-slide-up text-white text-lg md:text-2xl font-light">
+          Hey! I'm Boyun. Let's cut to the chase.
         </p>
-        <h1
-          className="animate-slide-up-d1 text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl short:text-5xl font-regular leading-tight"
+        <TypingHeadline
+          phrases={headlinePhrases}
+          className="animate-slide-up-d1 text-white text-[1.75rem] font-regular leading-tight"
           style={{ fontFamily: "'IBM Plex Serif', serif" }}
-        >
-          Let's cut to the chase
-        </h1>
-        <p className="animate-slide-up-d1 text-white text-3xl"
+        />
+        <p className="animate-slide-up-d1 text-white text-2xl md:text-3xl"
          style={{ fontFamily: "'IBM Plex Serif', serif" }}>
-          I design delightful experiences
-        </p>
-        <p className="animate-slide-up-d1 text-white/80 text-xl font-light">
-          Cofounder of {" "}
-          <a href="https://www.foryourdelight.ca/" target="_blank" rel="noopener noreferrer" className="hover:text-white/80 transition-colors underline underline-offset-2">foryourdelight</a>
-          {" "}and Prev. Designer @{" "}
+          Product Designer {" "}Prev. @{" "}
           <a href="https://skills.network/" target="_blank" rel="noopener noreferrer" className="hover:text-white/80 transition-colors underline underline-offset-2">IBM Skills Network</a>
+          
+        </p>
+        <p className="animate-slide-up-d1 text-white/80 text-base md:text-xl font-light">
+         On the side find me cofounding {" "}
+          <a href="https://www.foryourdelight.ca/" target="_blank" rel="noopener noreferrer" className="hover:text-white/80 transition-colors underline underline-offset-2">@foryourdelight</a>
+        .{" "}Same Skills. Different Medium. 
         </p>
 
-        <div className="animate-slide-up-d2 mt-10 short:mt-4 relative">
+        {/* On md+ the page doesn't scroll and the footer is fixed, so shortening this
+            margin moves the rail up: the gap above it shrinks and the one below it
+            grows by the same amount. */}
+        <div className="animate-slide-up-d2 mt-10 xl:mt-4 short:mt-4 relative">
           <div className="flex items-center gap-4 mb-4 short:mb-2">
             <div ref={filterMenuRef} className="relative sm:hidden">
               <button
@@ -290,7 +307,9 @@ export default function Home() {
     </div>
 
     {/* Full-width footer */}
-      <div className="relative md:fixed md:bottom-0 md:left-0 md:right-0 z-20 mt-10 md:mt-0 pb-8 md:pb-12">
+      {/* short:md:pb-6 pulls the fixed footer nearer the viewport edge on laptops
+          under 800px tall, where the cards would otherwise run right into it. */}
+      <div className="relative md:fixed md:bottom-0 md:left-0 md:right-0 z-20 mt-10 md:mt-0 pb-8 md:pb-10 short:md:pb-6">
         <div className="px-4 md:px-6 xl:px-20 w-full max-w-[1728px] mx-auto flex flex-col sm:flex-row items-center gap-4 sm:gap-0 sm:justify-between">
           <div className="flex items-center gap-4">
             <a href="https://www.linkedin.com/in/boyun-leung/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-white/70 hover:text-white transition-colors">
